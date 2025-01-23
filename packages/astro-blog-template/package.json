@@ -15,6 +15,7 @@
     "@wix/blog": "^1.0.340",
     "@wix/sdk": "^1.15.9",
     "@wix/astro-blog-loader": "^0.0.1",
+    "@wix/astro-ricos": "^0.0.1",
     "astro": "^5.1.8"
   },
   "publishConfig": {
