@@ -5,6 +5,7 @@ import {
   type RichContentNode,
   RichContentNodeType,
 } from "../types";
+import { media } from "@wix/sdk";
 
 const applyDecorations = (
   text: string,
@@ -50,7 +51,7 @@ const applyDecorations = (
   return text;
 };
 
-const processNodeChildren = (nodes: RichContentNode[]): string =>
+const processNodeChildren = (nodes: RichContentNode[], helpers: any): string =>
   nodes
     ?.map((node) => {
       switch (node.type) {
@@ -63,33 +64,36 @@ const processNodeChildren = (nodes: RichContentNode[]): string =>
           return `<h${node.headingData!.level || 1} style="text-align: ${
             node.headingData?.textStyle?.textAlignment ||
             RichContentAlignment.LEFT
-          }">${processNodeChildren(node.nodes!)}</h${
+          }">${processNodeChildren(node.nodes!, helpers)}</h${
             node.headingData!.level || 1
           }>`;
         case RichContentNodeType.PARAGRAPH:
-          return `<p>${processNodeChildren(node.nodes!)}</p>`;
+          return `<p>${processNodeChildren(node.nodes!, helpers)}</p>`;
         case RichContentNodeType.BULLETED_LIST:
           return `<ul style="margin-left: ${
             node.bulletedListData?.indentation || 0
-          }em">${processNodeChildren(node.nodes!)}</ul>`;
+          }em">${processNodeChildren(node.nodes!, helpers)}</ul>`;
         case RichContentNodeType.LIST_ITEM:
-          return `<li>${processNodeChildren(node.nodes!)}</li>`;
+          return `<li>${processNodeChildren(node.nodes!, helpers)}</li>`;
         case RichContentNodeType.IMAGE:
           const { src, width, height } = node.imageData!.image;
+          const imageUrl = helpers.media.getImageUrl(
+            `https://static.wixstatic.com/media/${src._id}`
+          ).url;
           const alignment =
             node.imageData!.containerData.alignment.toLowerCase();
-          const caption = processNodeChildren(node.nodes!);
+          const caption = processNodeChildren(node.nodes!, helpers);
           return `
-            <div style="text-align: ${alignment};">
-              <img src="${src.url}" width="${width}" height="${height}" alt="${
+          <div style="text-align: ${alignment};">
+            <img src="${imageUrl}" width="${width}" height="${height}" alt="${
             node.imageData!.altText
           }" />
-              ${caption ? `<div class="caption">${caption}</div>` : ""}
-            </div>`;
+            ${caption ? `<div class="caption">${caption}</div>` : ""}
+          </div>`;
         case RichContentNodeType.TABLE:
           const { colsWidthRatio, rowsHeight, colsMinWidth } =
             node.tableData!.dimensions;
-          const tableRows = processNodeChildren(node.nodes!);
+          const tableRows = processNodeChildren(node.nodes!, helpers);
           return `
             <table style="width: 100%; border-collapse: collapse;">
               <colgroup>
@@ -108,12 +112,13 @@ const processNodeChildren = (nodes: RichContentNode[]): string =>
               <tbody>${tableRows}</tbody>
             </table>`;
         case RichContentNodeType.TABLE_ROW:
-          return `<tr>${processNodeChildren(node.nodes!)}</tr>`;
+          return `<tr>${processNodeChildren(node.nodes!, helpers)}</tr>`;
         case RichContentNodeType.TABLE_CELL:
-          return `<td>${processNodeChildren(node.nodes!)}</td>`;
+          return `<td>${processNodeChildren(node.nodes!, helpers)}</td>`;
         case RichContentNodeType.CAPTION:
           return `<div class="caption">${processNodeChildren(
-            node.nodes!
+            node.nodes!,
+            helpers
           )}</div>`;
         default:
           return "";
@@ -121,6 +126,10 @@ const processNodeChildren = (nodes: RichContentNode[]): string =>
     })
     .join("") || "";
 
-export const richContentToHtml = (content: {
+export const richContentToHtml = async (content: {
   nodes: RichContentNode[];
-}): string => processNodeChildren(content.nodes);
+}): Promise<string> => {
+  const helpers = { media };
+
+  return processNodeChildren(content.nodes, helpers);
+};
