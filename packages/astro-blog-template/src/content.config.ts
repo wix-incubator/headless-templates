@@ -23,7 +23,7 @@ export function blogLoader(): Loader {
 
         context.store.set({
           ...item,
-          id: item.data.slug as string,
+          id: (item.data.slug || item.id) as string,
           data,
           digest,
         });
