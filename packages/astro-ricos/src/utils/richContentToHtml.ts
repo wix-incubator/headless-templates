@@ -1,5 +1,32 @@
-const mapDecorations = (text: any, decorations = []) => {
-  decorations.forEach((decoration: any) => {
+type Decoration = {
+  type: string;
+  linkData?: {
+    link: { url: string; target?: string; rel?: Record<string, boolean> };
+  };
+  colorData?: { background: string };
+};
+
+type Node = {
+  type: string;
+  id: string;
+  textData?: { text: string; decorations: Decoration[] };
+  headingData?: { level: number; textStyle?: { textAlignment: string } };
+  nodes?: Node[];
+  imageData?: {
+    image: { src: { id: string }; width: number; height: number };
+    containerData: {
+      alignment: string;
+      width: { size: string };
+      textWrap: boolean;
+    };
+  };
+};
+
+const mapDecorations = (
+  text: string,
+  decorations: Decoration[] = []
+): string => {
+  decorations.forEach((decoration) => {
     switch (decoration.type) {
       case "BOLD":
         text = `<strong>${text}</strong>`;
@@ -11,55 +38,51 @@ const mapDecorations = (text: any, decorations = []) => {
         text = `<u>${text}</u>`;
         break;
       case "LINK":
-        const { url, target, rel } = decoration.linkData.link;
+        const { url, target, rel } = decoration.linkData!.link;
         const relAttrs = Object.keys(rel || {}).join(" ");
         text = `<a href="${url}" target="${
           target || "_self"
         }" rel="${relAttrs}">${text}</a>`;
         break;
       case "COLOR":
-        const bgColor = decoration.colorData.background;
-        text = `<span style="background-color: ${bgColor};">${text}</span>`;
-        break;
-      default:
+        text = `<span style="background-color: ${
+          decoration.colorData!.background
+        };">${text}</span>`;
         break;
     }
   });
   return text;
 };
 
-export const richContentToHtml = (richContent: any) => {
-  const processNodes = (nodes: any): any => {
-    if (!nodes || !Array.isArray(nodes)) return "";
+const processNodes = (nodes: Node[]): string =>
+  nodes
+    ?.map((node) => {
+      switch (node.type) {
+        case "TEXT":
+          return mapDecorations(
+            node.textData!.text,
+            node.textData!.decorations
+          );
+        case "HEADING":
+          return `<h${node.headingData!.level || 1} style="text-align: ${
+            node.headingData?.textStyle?.textAlignment || "left"
+          }">${processNodes(node.nodes!)}</h${node.headingData!.level || 1}>`;
+        case "PARAGRAPH":
+          return `<p>${processNodes(node.nodes!)}</p>`;
+        case "BULLETED_LIST":
+          return `<ul>${processNodes(node.nodes!)}</ul>`;
+        case "LIST_ITEM":
+          return `<li>${processNodes(node.nodes!)}</li>`;
+        case "IMAGE":
+          const { src, width, height } = node.imageData!.image;
+          const alignment =
+            node.imageData!.containerData.alignment.toLowerCase();
+          return `<div style="text-align: ${alignment};"><img src="${src.id}" width="${width}" height="${height}" /></div>`;
+        default:
+          return "";
+      }
+    })
+    .join("") || "";
 
-    return nodes
-      .map((node) => {
-        switch (node.type) {
-          case "TEXT":
-            return mapDecorations(
-              node.textData.text,
-              node.textData.decorations
-            );
-          case "HEADING":
-            const level = node.headingData.level || 1;
-            return `<h${level}>${processNodes(node.nodes)}</h${level}>`;
-          case "PARAGRAPH":
-            return `<p>${processNodes(node.nodes)}</p>`;
-          case "BULLETED_LIST":
-            return `<ul>${processNodes(node.nodes)}</ul>`;
-          case "LIST_ITEM":
-            return `<li>${processNodes(node.nodes)}</li>`;
-          case "IMAGE":
-            const { src, width, height } = node.imageData.image;
-            const alignment =
-              node.imageData.containerData.alignment.toLowerCase();
-            return `<div style="text-align: ${alignment};"><img src="${src.id}" width="${width}" height="${height}" /></div>`;
-          default:
-            return "";
-        }
-      })
-      .join("");
-  };
-
-  return processNodes(richContent.nodes);
-};
+export const richContentToHtml = (richContent: { nodes: Node[] }): string =>
+  processNodes(richContent.nodes);
