@@ -1,5 +1,7 @@
 ---
+import { richContentToHtml } from "../utils/richContentToHtml";
+
 const { content } = Astro.props;
 ---
 
-<div>{content}</div>
+<div set:html={richContentToHtml(content)} />
