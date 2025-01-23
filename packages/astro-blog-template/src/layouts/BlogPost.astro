@@ -12,6 +12,11 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
 <html lang="en">
 	<head>
+		<script is:inline>
+			if (global === undefined) {
+			var global = window;
+			}
+ 		</script>
 		<BaseHead title={title} description={description} />
 		<style>
 			main {
@@ -55,6 +60,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 	</head>
 
 	<body>
+
 		<Header />
 		<main>
 			<article>

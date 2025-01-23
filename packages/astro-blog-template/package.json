@@ -10,12 +10,16 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.7",
+    "@astrojs/react": "^4.1.6",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.2.1",
-    "@wix/blog": "^1.0.340",
-    "@wix/sdk": "^1.15.9",
-    "@wix/astro-blog-loader": "^0.0.1",
-    "astro": "^5.1.8"
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@wix/ricos": "^10.116.0",
+    "astro": "^5.1.8",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "@wix/astro-blog-loader": "^0.0.1"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
