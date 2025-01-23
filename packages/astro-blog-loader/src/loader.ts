@@ -1,6 +1,7 @@
 import { posts } from "@wix/blog";
 import { createClient, media, OAuthStrategy } from "@wix/sdk";
 import type { Loader, LoaderContext } from "astro/loaders";
+import { renameKeysFromSDKRequestToRESTRequest } from "@wix/sdk-runtime/rename-all-nested-keys";
 
 const getWixClient = () => {
   const { PUBLIC_WIX_CLIENT_ID } = import.meta.env;
@@ -46,6 +47,9 @@ export function wixBlogLoader(): Loader {
             ...(item.media?.wixMedia?.image && {
               mediaUrl: media.getImageUrl(item.media?.wixMedia?.image).url,
             }),
+            richContent: renameKeysFromSDKRequestToRESTRequest(
+              item.richContent
+            ),
           },
         });
 
