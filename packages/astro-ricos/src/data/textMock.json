@@ -88,7 +88,7 @@
                             {
                                 "type": "ANCHOR",
                                 "anchorData": {
-                                    "anchor": ""
+                                    "anchor": "rppfEuOzn"
                                 }
                             }
                         ]
@@ -104,13 +104,13 @@
                     "type": "TEXT",
                     "id": "node-6",
                     "textData": {
-                        "text": "Mention John Doe ",
+                        "text": "@JonhDoe ",
                         "decorations": [
                             {
                                 "type": "MENTION",
                                 "mentionData": {
                                     "name": "John Doe",
-                                    "slug": "",
+                                    "slug": "johndoe",
                                     "id": "user123"
                                 }
                             }

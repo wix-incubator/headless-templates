@@ -106,15 +106,18 @@ const applyDecorations = (
       case DecorationType.ANCHOR:
         return renderTag({
           tag: "a",
-          attributes: { name: decoration.anchorData.name },
+          attributes: {
+            href: `#${decoration.anchorData.anchor}`,
+            target: "_self",
+          },
           children: result,
         });
       case DecorationType.MENTION:
         return renderTag({
           tag: "span",
           attributes: {
-            class: "mention",
-            "data-mention-id": decoration.mentionData.id,
+            role: "link",
+            tabindex: "0",
           },
           children: result,
         });
@@ -147,7 +150,13 @@ const renderHeadingNode = (node: RicosNode) =>
   });
 
 const renderParagraphNode = (node: RicosNode) =>
-  renderTag({ tag: "p", children: renderRicosNode(node.nodes!) });
+  renderTag({
+    tag: "p",
+    children: renderRicosNode(node.nodes!),
+    attributes: {
+      id: node.id,
+    },
+  });
 
 const renderBulletedListNode = (node: RicosNode) =>
   renderTag({
