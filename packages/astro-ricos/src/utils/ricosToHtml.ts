@@ -17,7 +17,7 @@ const objectToStyle = (style: Record<string, string>): string =>
     .map(([key, value]) => `${key}: ${value}`)
     .join("; ");
 
-const wrapWithTag = ({
+const renderTag = ({
   tag,
   attributes = {},
   children = "",
@@ -27,7 +27,7 @@ const wrapWithTag = ({
   children?: string;
   attributes?: Record<string, string>;
   style?: Record<string, string>;
-}) => {
+}): string => {
   const attributesString = Object.keys(attributes).length
     ? ` ${objectToAttributes(attributes)}`
     : "";
@@ -40,7 +40,7 @@ const wrapWithTag = ({
 const applyLinkDecoration = (text: string, linkData: any) => {
   const { url, target, rel } = linkData.link;
   const relAttrs = Object.keys(rel || {}).join(" ");
-  return wrapWithTag({
+  return renderTag({
     tag: "a",
     attributes: {
       href: url,
@@ -59,7 +59,7 @@ const applyColorDecoration = (text: string, colorData: any) => {
     ? { color: foreground }
     : {};
   return Object.keys(style).length
-    ? wrapWithTag({ tag: "span", style, children: text })
+    ? renderTag({ tag: "span", style, children: text })
     : text;
 };
 
@@ -70,25 +70,47 @@ const applyDecorations = (
   decorations.reduce((result, decoration) => {
     switch (decoration.type) {
       case DecorationType.BOLD:
-        return wrapWithTag({ tag: "strong", children: result });
+        return renderTag({
+          tag: "strong",
+          children: result,
+          style: {
+            "font-weight": `${decoration.fontWeightValue}`,
+          },
+        });
       case DecorationType.ITALIC:
-        return wrapWithTag({ tag: "em", children: result });
+        return renderTag({
+          tag: "em",
+          children: result,
+          style: {
+            "font-style": !decoration.italicData ? "normal" : "italic",
+          },
+        });
       case DecorationType.UNDERLINE:
-        return wrapWithTag({ tag: "u", children: result });
+        return renderTag({
+          tag: "u",
+          children: result,
+          style: {
+            "font-decoration": !decoration.underlineData ? "underline" : "none",
+          },
+        });
       case DecorationType.SPOILER:
-        return wrapWithTag({
+        return renderTag({
           tag: "span",
-          attributes: { class: "spoiler" },
+          attributes: { role: "button" },
+          style: {
+            cursor: "pointer",
+            filter: "blur(0.25em)",
+          },
           children: result,
         });
       case DecorationType.ANCHOR:
-        return wrapWithTag({
+        return renderTag({
           tag: "a",
           attributes: { name: decoration.anchorData.name },
           children: result,
         });
       case DecorationType.MENTION:
-        return wrapWithTag({
+        return renderTag({
           tag: "span",
           attributes: {
             class: "mention",
@@ -101,7 +123,7 @@ const applyDecorations = (
       case DecorationType.COLOR:
         return applyColorDecoration(result, decoration.colorData);
       case DecorationType.FONT_SIZE:
-        return wrapWithTag({
+        return renderTag({
           tag: "span",
           style: { "font-size": `${decoration.fontSizeData.size}px` },
           children: result,
@@ -115,7 +137,7 @@ const renderTextNode = (node: RicosNode) =>
   applyDecorations(node.textData.text, node.textData.decorations);
 
 const renderHeadingNode = (node: RicosNode) =>
-  wrapWithTag({
+  renderTag({
     tag: `h${node.headingData.level || 1}`,
     style: {
       textAlign:
@@ -125,17 +147,17 @@ const renderHeadingNode = (node: RicosNode) =>
   });
 
 const renderParagraphNode = (node: RicosNode) =>
-  wrapWithTag({ tag: "p", children: renderRicosNode(node.nodes!) });
+  renderTag({ tag: "p", children: renderRicosNode(node.nodes!) });
 
 const renderBulletedListNode = (node: RicosNode) =>
-  wrapWithTag({
+  renderTag({
     tag: "ul",
     style: { marginLeft: `${node.bulletedListData?.indentation || 0}em` },
     children: renderRicosNode(node.nodes!),
   });
 
 const renderListItemNode = (node: RicosNode) =>
-  wrapWithTag({ tag: "li", children: renderRicosNode(node.nodes!) });
+  renderTag({ tag: "li", children: renderRicosNode(node.nodes!) });
 
 const renderImageNode = (node: RicosNode, helpers: any) => {
   const { src, width, height } = node.imageData.image;
@@ -144,13 +166,13 @@ const renderImageNode = (node: RicosNode, helpers: any) => {
   ).url;
   const alignment = node.imageData.containerData.alignment.toLowerCase();
   const caption = renderRicosNode(node.nodes!, helpers);
-  return wrapWithTag({
+  return renderTag({
     tag: "div",
     style: { textAlign: alignment },
     children:
       `<img src="${imageUrl}" width="${width}" height="${height}" alt="${node.imageData.altText}" />` +
       (caption
-        ? wrapWithTag({
+        ? renderTag({
             tag: "div",
             attributes: { class: "caption" },
             children: caption,
@@ -168,7 +190,7 @@ const renderTableNode = (node: RicosNode) => {
     )
     .join("");
   const tableRows = renderRicosNode(node.nodes!);
-  return wrapWithTag({
+  return renderTag({
     tag: "table",
     style: { width: "100%", borderCollapse: "collapse" },
     children: `<colgroup>${colGroup}</colgroup><tbody>${tableRows}</tbody>`,
@@ -176,13 +198,13 @@ const renderTableNode = (node: RicosNode) => {
 };
 
 const renderTableRowNode = (node: RicosNode) =>
-  wrapWithTag({ tag: "tr", children: renderRicosNode(node.nodes!) });
+  renderTag({ tag: "tr", children: renderRicosNode(node.nodes!) });
 
 const renderTableCellNode = (node: RicosNode) =>
-  wrapWithTag({ tag: "td", children: renderRicosNode(node.nodes!) });
+  renderTag({ tag: "td", children: renderRicosNode(node.nodes!) });
 
 const renderCaptionNode = (node: RicosNode) =>
-  wrapWithTag({
+  renderTag({
     tag: "div",
     attributes: { class: "caption" },
     children: renderRicosNode(node.nodes!),

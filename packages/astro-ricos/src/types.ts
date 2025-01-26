@@ -37,6 +37,7 @@ export type RicosDecoration = {
   colorData?: { background?: string; foreground?: string };
   fontWeightValue?: number;
   italicData?: boolean;
+  underlineData?: boolean;
 };
 
 export type RicosNode = {
