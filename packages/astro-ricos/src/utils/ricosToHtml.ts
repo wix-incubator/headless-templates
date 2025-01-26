@@ -54,12 +54,12 @@ const applyDecorations = (
   }, text);
 
 const renderTextNode = (node: RicosNode) =>
-  applyDecorations(node.textData!.text, node.textData!.decorations);
+  applyDecorations(node.textData.text, node.textData.decorations);
 
 const renderHeadingNode = (node: RicosNode) =>
   wrapWithTag(
     renderRicosNode(node.nodes!),
-    `h${node.headingData!.level || 1}`,
+    `h${node.headingData.level || 1}`,
     `style="text-align: ${
       node.headingData?.textStyle?.textAlignment || RicosAlignment.LEFT
     }"`
@@ -79,23 +79,22 @@ const renderListItemNode = (node: RicosNode) =>
   wrapWithTag(renderRicosNode(node.nodes!), "li");
 
 const renderImageNode = (node: RicosNode, helpers: any) => {
-  const { src, width, height } = node.imageData!.image;
+  const { src, width, height } = node.imageData.image;
   const imageUrl = helpers.media.getImageUrl(
     `https://static.wixstatic.com/media/${src.id}`
   ).url;
-  const alignment = node.imageData!.containerData.alignment.toLowerCase();
+  const alignment = node.imageData.containerData.alignment.toLowerCase();
   const caption = renderRicosNode(node.nodes!, helpers);
   return wrapWithTag(
-    `<img src="${imageUrl}" width="${width}" height="${height}" alt="${
-      node.imageData!.altText
-    }" />` + (caption ? wrapWithTag(caption, "div", `class="caption"`) : ""),
+    `<img src="${imageUrl}" width="${width}" height="${height}" alt="${node.imageData.altText}" />` +
+      (caption ? wrapWithTag(caption, "div", `class="caption"`) : ""),
     "div",
     `style="text-align: ${alignment}"`
   );
 };
 
 const renderTableNode = (node: RicosNode) => {
-  const { colsWidthRatio, colsMinWidth } = node.tableData!.dimensions;
+  const { colsWidthRatio, colsMinWidth } = node.tableData.dimensions;
   const colGroup = colsWidthRatio
     .map(
       (width, index) =>
