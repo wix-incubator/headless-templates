@@ -56,39 +56,35 @@ const applyDecorations = (
 const renderTextNode = (node: RicosNode) =>
   applyDecorations(node.textData!.text, node.textData!.decorations);
 
-const renderHeadingNode = (node: RicosNode, renderChildren: Function) =>
+const renderHeadingNode = (node: RicosNode) =>
   wrapWithTag(
-    renderChildren(node.nodes!),
+    renderRicosNode(node.nodes!),
     `h${node.headingData!.level || 1}`,
     `style="text-align: ${
       node.headingData?.textStyle?.textAlignment || RicosAlignment.LEFT
     }"`
   );
 
-const renderParagraphNode = (node: RicosNode, renderChildren: Function) =>
-  wrapWithTag(renderChildren(node.nodes!), "p");
+const renderParagraphNode = (node: RicosNode) =>
+  wrapWithTag(renderRicosNode(node.nodes!), "p");
 
-const renderBulletedListNode = (node: RicosNode, renderChildren: Function) =>
+const renderBulletedListNode = (node: RicosNode) =>
   wrapWithTag(
-    renderChildren(node.nodes!),
+    renderRicosNode(node.nodes!),
     "ul",
     `style="margin-left: ${node.bulletedListData?.indentation || 0}em"`
   );
 
-const renderListItemNode = (node: RicosNode, renderChildren: Function) =>
-  wrapWithTag(renderChildren(node.nodes!), "li");
+const renderListItemNode = (node: RicosNode) =>
+  wrapWithTag(renderRicosNode(node.nodes!), "li");
 
-const renderImageNode = (
-  node: RicosNode,
-  helpers: any,
-  renderChildren: Function
-) => {
+const renderImageNode = (node: RicosNode, helpers: any) => {
   const { src, width, height } = node.imageData!.image;
   const imageUrl = helpers.media.getImageUrl(
     `https://static.wixstatic.com/media/${src._id}`
   ).url;
   const alignment = node.imageData!.containerData.alignment.toLowerCase();
-  const caption = renderChildren(node.nodes!);
+  const caption = renderRicosNode(node.nodes!, helpers);
   return wrapWithTag(
     `<img src="${imageUrl}" width="${width}" height="${height}" alt="${
       node.imageData!.altText
@@ -98,7 +94,7 @@ const renderImageNode = (
   );
 };
 
-const renderTableNode = (node: RicosNode, renderChildren: Function) => {
+const renderTableNode = (node: RicosNode) => {
   const { colsWidthRatio, colsMinWidth } = node.tableData!.dimensions;
   const colGroup = colsWidthRatio
     .map(
@@ -106,7 +102,7 @@ const renderTableNode = (node: RicosNode, renderChildren: Function) => {
         `<col style="width: ${width}%; min-width: ${colsMinWidth[index]}px;">`
     )
     .join("");
-  const tableRows = renderChildren(node.nodes!);
+  const tableRows = renderRicosNode(node.nodes!);
   return `
     <table style="width: 100%; border-collapse: collapse;">
       <colgroup>${colGroup}</colgroup>
@@ -114,46 +110,39 @@ const renderTableNode = (node: RicosNode, renderChildren: Function) => {
     </table>`;
 };
 
-const renderTableRowNode = (node: RicosNode, renderChildren: Function) =>
-  wrapWithTag(renderChildren(node.nodes!), "tr");
+const renderTableRowNode = (node: RicosNode) =>
+  wrapWithTag(renderRicosNode(node.nodes!), "tr");
 
-const renderTableCellNode = (node: RicosNode, renderChildren: Function) =>
-  wrapWithTag(renderChildren(node.nodes!), "td");
+const renderTableCellNode = (node: RicosNode) =>
+  wrapWithTag(renderRicosNode(node.nodes!), "td");
 
-const renderCaptionNode = (node: RicosNode, renderChildren: Function) =>
-  wrapWithTag(renderChildren(node.nodes!), "div", `class="caption"`);
+const renderCaptionNode = (node: RicosNode) =>
+  wrapWithTag(renderRicosNode(node.nodes!), "div", `class="caption"`);
 
-const renderRicosNode = (nodes: RicosNode[], helpers: any): string =>
+const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
   nodes
     .map((node) => {
       switch (node.type) {
         case RicosNodeType.TEXT:
           return renderTextNode(node);
         case RicosNodeType.HEADING:
-          return renderHeadingNode(node, renderRicosNode.bind(null, helpers));
+          return renderHeadingNode(node);
         case RicosNodeType.PARAGRAPH:
-          return renderParagraphNode(node, renderRicosNode.bind(null, helpers));
+          return renderParagraphNode(node);
         case RicosNodeType.BULLETED_LIST:
-          return renderBulletedListNode(
-            node,
-            renderRicosNode.bind(null, helpers)
-          );
+          return renderBulletedListNode(node);
         case RicosNodeType.LIST_ITEM:
-          return renderListItemNode(node, renderRicosNode.bind(null, helpers));
+          return renderListItemNode(node);
         case RicosNodeType.IMAGE:
-          return renderImageNode(
-            node,
-            helpers,
-            renderRicosNode.bind(null, helpers)
-          );
+          return renderImageNode(node, helpers!);
         case RicosNodeType.TABLE:
-          return renderTableNode(node, renderRicosNode.bind(null, helpers));
+          return renderTableNode(node);
         case RicosNodeType.TABLE_ROW:
-          return renderTableRowNode(node, renderRicosNode.bind(null, helpers));
+          return renderTableRowNode(node);
         case RicosNodeType.TABLE_CELL:
-          return renderTableCellNode(node, renderRicosNode.bind(null, helpers));
+          return renderTableCellNode(node);
         case RicosNodeType.CAPTION:
-          return renderCaptionNode(node, renderRicosNode.bind(null, helpers));
+          return renderCaptionNode(node);
         default:
           return "";
       }
