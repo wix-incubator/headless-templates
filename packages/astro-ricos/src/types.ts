@@ -6,13 +6,13 @@ export enum DecorationType {
   COLOR = "COLOR",
 }
 
-export enum RichContentAlignment {
+export enum RicosAlignment {
   LEFT = "left",
   CENTER = "center",
   RIGHT = "right",
 }
 
-export enum RichContentNodeType {
+export enum RicosNodeType {
   TEXT = "TEXT",
   HEADING = "HEADING",
   PARAGRAPH = "PARAGRAPH",
@@ -25,7 +25,7 @@ export enum RichContentNodeType {
   CAPTION = "CAPTION",
 }
 
-export type RichContentDecoration = {
+export type RicosDecoration = {
   type: DecorationType;
   linkData?: {
     link: { url: string; target?: string; rel?: Record<string, boolean> };
@@ -35,19 +35,19 @@ export type RichContentDecoration = {
   italicData?: boolean;
 };
 
-export type RichContentNode = {
-  type: RichContentNodeType;
+export type RicosNode = {
+  type: RicosNodeType;
   id: string;
-  textData?: { text: string; decorations: RichContentDecoration[] };
+  textData?: { text: string; decorations: RicosDecoration[] };
   headingData?: {
     level: number;
-    textStyle?: { textAlignment: RichContentAlignment };
+    textStyle?: { textAlignment: RicosAlignment };
   };
-  nodes?: RichContentNode[];
+  nodes?: RicosNode[];
   imageData?: {
     image: { src: { url: string }; width: number; height: number };
     containerData: {
-      alignment: RichContentAlignment;
+      alignment: RicosAlignment;
       width: { size: string };
       textWrap: boolean;
     };
