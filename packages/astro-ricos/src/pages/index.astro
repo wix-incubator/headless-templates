@@ -1,4 +1,6 @@
 ---
+import Ricos from "@wix/ricos";
+import "@wix/ricos/css/all-plugins-viewer.css";
 import RicosViewer from '../components/RicosViewer.astro';
 import mockContent from '../data/mock.json';
 
@@ -7,6 +9,16 @@ import mockContent from '../data/mock.json';
 <!doctype html>
 <html lang="en">
 	<body>
-		<RicosViewer content={mockContent} />
+		<div style="display: flex;">
+			<div style="flex: 1; padding: 10px;">
+				<RicosViewer content={mockContent} />
+			</div>
+			<div style="flex: 1; padding: 10px;">
+				<Ricos.RicosViewer 
+					content={mockContent}
+					plugins={Ricos.quickStartViewerPlugins()}
+				/>
+			</div>
+		</div>
 	</body>
 </html>
