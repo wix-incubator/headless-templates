@@ -55,6 +55,16 @@ export type RicosNode = {
     level: number;
     textStyle?: { textAlignment: RicosAlignment };
   };
+  style?: {
+    paddingTop?: string;
+    paddingBottom?: string;
+  };
+  paragraphData?: {
+    textStyle?: {
+      lineHeight?: string;
+    };
+    indentation?: number;
+  };
   nodes?: RicosNode[];
   imageData?: {
     image: { src: { url: string }; width: number; height: number };

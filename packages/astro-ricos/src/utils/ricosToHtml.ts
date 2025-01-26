@@ -140,6 +140,18 @@ const renderParagraphNode = (node: RicosNode) =>
     attributes: {
       id: node.id,
     },
+    style: {
+      ...(node.style?.paddingTop && { "padding-top": node.style?.paddingTop }),
+      ...(node.style?.paddingBottom && {
+        "padding-bottom": node.style?.paddingBottom,
+      }),
+      ...(node.paragraphData?.textStyle?.lineHeight && {
+        "line-height": node.paragraphData?.textStyle?.lineHeight,
+      }),
+      ...(node.paragraphData?.indentation && {
+        "margin-inline-start": `${node.paragraphData?.indentation * 40}px`,
+      }),
+    },
   });
 
 const renderHeadingNode = (node: RicosNode) =>
