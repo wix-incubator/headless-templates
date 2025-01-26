@@ -120,6 +120,30 @@
             ]
         },
         {
+            "type": "TEXT",
+            "id": "",
+            "textData": {
+                "text": "Link ",
+                "decorations": [
+                    {
+                        "type": "LINK",
+                        "linkData": {
+                            "link": {
+                                "url": "https://en.wikipedia.org/wiki/Quinoa",
+                                "target": "BLANK",
+                                "rel": {
+                                    "noreferrer": true
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "UNDERLINE"
+                    }
+                ]
+            }
+        },
+        {
             "type": "PARAGRAPH",
             "id": "rppfEuOzn",
             "nodes": [
@@ -149,7 +173,16 @@
                     "type": "TEXT",
                     "id": "node-9",
                     "textData": {
-                        "text": "Font Size "
+                        "text": "Font Size ",
+                        "decorations": [
+                            {
+                                "type": "FONT_SIZE",
+                                "fontSizeData": {
+                                    "unit": "PX",
+                                    "value": 24
+                                }
+                            }
+                        ]
                     }
                 }
             ]

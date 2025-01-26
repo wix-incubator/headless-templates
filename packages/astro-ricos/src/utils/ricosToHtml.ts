@@ -122,13 +122,34 @@ const applyDecorations = (
           children: result,
         });
       case DecorationType.LINK:
-        return applyLinkDecoration(result, decoration.linkData);
+        return renderTag({
+          tag: "a",
+          attributes: {
+            href: decoration.linkData.link.url,
+            target: "_blank",
+            rel: "noopener noreferrer",
+          },
+          children: text,
+        });
       case DecorationType.COLOR:
-        return applyColorDecoration(result, decoration.colorData);
+        return renderTag({
+          tag: "span",
+          style: {
+            ...(decoration.colorData.background && {
+              "background-color": decoration.colorData.background,
+            }),
+            ...(decoration.colorData.foreground && {
+              color: decoration.colorData.foreground,
+            }),
+          },
+          children: text,
+        });
       case DecorationType.FONT_SIZE:
         return renderTag({
           tag: "span",
-          style: { "font-size": `${decoration.fontSizeData.size}px` },
+          style: {
+            "font-size": `${decoration.fontSizeData.value}${decoration.fontSizeData.unit}`,
+          },
           children: result,
         });
       default:

@@ -32,13 +32,19 @@ export enum RicosNodeType {
 export type RicosDecoration = {
   type: DecorationType;
   linkData?: {
-    link: { url: string; target?: string; rel?: Record<string, boolean> };
+    link?: {
+      url: string;
+    };
   };
   colorData?: { background?: string; foreground?: string };
   fontWeightValue?: number;
   italicData?: boolean;
   underlineData?: boolean;
   anchorData?: { anchor?: string };
+  fontSizeData?: {
+    value: number;
+    unit: string;
+  };
 };
 
 export type RicosNode = {
