@@ -40,101 +40,103 @@ const renderTag = ({
 const renderTextNode = (node: RicosNode) => {
   const { text, decorations } = node.textData;
 
-  return decorations.reduce((result, decoration) => {
-    switch (decoration.type) {
-      case DecorationType.BOLD:
-        return renderTag({
-          tag: "strong",
-          children: result,
-          style: {
-            "font-weight": `${decoration.fontWeightValue}`,
-          },
-        });
-      case DecorationType.ITALIC:
-        return renderTag({
-          tag: "em",
-          children: result,
-          style: {
-            "font-style": !decoration.italicData ? "normal" : "italic",
-          },
-        });
-      case DecorationType.UNDERLINE:
-        return renderTag({
-          tag: "u",
-          children: result,
-          style: {
-            "font-decoration": !decoration.underlineData ? "underline" : "none",
-          },
-        });
-      case DecorationType.SPOILER:
-        return renderTag({
-          tag: "span",
-          attributes: { role: "button" },
-          style: {
-            cursor: "pointer",
-            filter: "blur(0.25em)",
-          },
-          children: result,
-        });
-      case DecorationType.ANCHOR:
-        return renderTag({
-          tag: "a",
-          attributes: {
-            href: `#${decoration.anchorData.anchor}`,
-            target: "_self",
-          },
-          children: result,
-        });
-      case DecorationType.MENTION:
-        return renderTag({
-          tag: "span",
-          attributes: {
-            role: "link",
-            tabindex: "0",
-          },
-          children: result,
-        });
-      case DecorationType.LINK:
-        return renderTag({
-          tag: "a",
-          attributes: {
-            href: decoration.linkData.link.url,
-            target: "_blank",
-            rel: "noopener noreferrer",
-          },
-          children: text,
-        });
-      case DecorationType.COLOR:
-        return renderTag({
-          tag: "span",
-          style: {
-            ...(decoration.colorData.background && {
-              "background-color": decoration.colorData.background,
-            }),
-            ...(decoration.colorData.foreground && {
-              color: decoration.colorData.foreground,
-            }),
-          },
-          children: text,
-        });
-      case DecorationType.FONT_SIZE:
-        return renderTag({
-          tag: "span",
-          style: {
-            "font-size": `${decoration.fontSizeData.value}${decoration.fontSizeData.unit}`,
-          },
-          children: result,
-        });
-      default:
-        return result;
-    }
-  }, text);
+  return decorations
+    ? decorations.reduce((result, decoration) => {
+        switch (decoration.type) {
+          case DecorationType.BOLD:
+            return renderTag({
+              tag: "strong",
+              children: result,
+              style: {
+                "font-weight": `${decoration.fontWeightValue}`,
+              },
+            });
+          case DecorationType.ITALIC:
+            return renderTag({
+              tag: "em",
+              children: result,
+              style: {
+                "font-style": !decoration.italicData ? "normal" : "italic",
+              },
+            });
+          case DecorationType.UNDERLINE:
+            return renderTag({
+              tag: "u",
+              children: result,
+              style: {
+                "font-decoration": !decoration.underlineData
+                  ? "underline"
+                  : "none",
+              },
+            });
+          case DecorationType.SPOILER:
+            return renderTag({
+              tag: "span",
+              attributes: { role: "button" },
+              style: {
+                cursor: "pointer",
+                filter: "blur(0.25em)",
+              },
+              children: result,
+            });
+          case DecorationType.ANCHOR:
+            return renderTag({
+              tag: "a",
+              attributes: {
+                href: `#${decoration.anchorData.anchor}`,
+                target: "_self",
+              },
+              children: result,
+            });
+          case DecorationType.MENTION:
+            return renderTag({
+              tag: "span",
+              attributes: {
+                role: "link",
+                tabindex: "0",
+              },
+              children: result,
+            });
+          case DecorationType.LINK:
+            return renderTag({
+              tag: "a",
+              attributes: {
+                href: decoration.linkData.link.url,
+                target: "_blank",
+                rel: "noopener noreferrer",
+              },
+              children: text,
+            });
+          case DecorationType.COLOR:
+            return renderTag({
+              tag: "span",
+              style: {
+                ...(decoration.colorData.background && {
+                  "background-color": decoration.colorData.background,
+                }),
+                ...(decoration.colorData.foreground && {
+                  color: decoration.colorData.foreground,
+                }),
+              },
+              children: text,
+            });
+          case DecorationType.FONT_SIZE:
+            return renderTag({
+              tag: "span",
+              style: {
+                "font-size": `${decoration.fontSizeData.value}${decoration.fontSizeData.unit}`,
+              },
+              children: result,
+            });
+        }
+      }, text)
+    : text;
 };
 
 const renderParagraphNode = (node: RicosNode) =>
   renderTag({
     tag: "p",
-    children: renderRicosNode(node.nodes!),
+    children: renderRicosNode(node.nodes),
     attributes: {
       id: node.id,
     },
