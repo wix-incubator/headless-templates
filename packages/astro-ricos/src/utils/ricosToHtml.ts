@@ -1,11 +1,10 @@
+import { media } from "@wix/sdk";
 import {
   DecorationType,
   RicosAlignment,
-  type RicosDecoration,
   type RicosNode,
   RicosNodeType,
 } from "../types";
-import { media } from "@wix/sdk";
 
 const objectToAttributes = (attributes: Record<string, string>): string =>
   Object.entries(attributes)
@@ -34,40 +33,14 @@ const renderTag = ({
   const styleString = Object.keys(style).length
     ? ` style="${objectToStyle(style)}"`
     : "";
+
   return `<${tag}${attributesString}${styleString}>${children}</${tag}>`;
 };
 
-const applyLinkDecoration = (text: string, linkData: any) => {
-  const { url, target, rel } = linkData.link;
-  const relAttrs = Object.keys(rel || {}).join(" ");
-  return renderTag({
-    tag: "a",
-    attributes: {
-      href: url,
-      target: target || "_self",
-      rel: relAttrs,
-    },
-    children: text,
-  });
-};
+const renderTextNode = (node: RicosNode) => {
+  const { text, decorations } = node.textData;
 
-const applyColorDecoration = (text: string, colorData: any) => {
-  const { background, foreground } = colorData || {};
-  const style = background
-    ? { "background-color": background }
-    : foreground
-    ? { color: foreground }
-    : {};
-  return Object.keys(style).length
-    ? renderTag({ tag: "span", style, children: text })
-    : text;
-};
-
-const applyDecorations = (
-  text: string,
-  decorations: RicosDecoration[] = []
-): string =>
-  decorations.reduce((result, decoration) => {
+  return decorations.reduce((result, decoration) => {
     switch (decoration.type) {
       case DecorationType.BOLD:
         return renderTag({
@@ -156,9 +129,16 @@ const applyDecorations = (
         return result;
     }
   }, text);
+};
 
-const renderTextNode = (node: RicosNode) =>
-  applyDecorations(node.textData.text, node.textData.decorations);
+const renderParagraphNode = (node: RicosNode) =>
+  renderTag({
+    tag: "p",
+    children: renderRicosNode(node.nodes!),
+    attributes: {
+      id: node.id,
+    },
+  });
 
 const renderHeadingNode = (node: RicosNode) =>
   renderTag({
@@ -168,15 +148,6 @@ const renderHeadingNode = (node: RicosNode) =>
         node.headingData?.textStyle?.textAlignment || RicosAlignment.LEFT,
     },
     children: renderRicosNode(node.nodes!),
-  });
-
-const renderParagraphNode = (node: RicosNode) =>
-  renderTag({
-    tag: "p",
-    children: renderRicosNode(node.nodes!),
-    attributes: {
-      id: node.id,
-    },
   });
 
 const renderBulletedListNode = (node: RicosNode) =>
