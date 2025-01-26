@@ -1,0 +1,68 @@
+{
+    "nodes": [
+        {
+            "type": "HEADING",
+            "id": "foo",
+            "nodes": [
+                {
+                    "type": "TEXT",
+                    "id": "",
+                    "textData": {
+                        "text": "Ricos Platform"
+                    }
+                }
+            ],
+            "headingData": {
+                "level": 2,
+                "textStyle": {
+                    "textAlignment": "AUTO"
+                }
+            }
+        },
+        {
+            "type": "PARAGRAPH",
+            "id": "lxr936"
+        },
+        {
+            "type": "PARAGRAPH",
+            "id": "j7tdj13",
+            "nodes": [
+                {
+                    "type": "TEXT",
+                    "id": "",
+                    "textData": {
+                        "text": "Be able to create Rich Content anywhere in your product. Seamless integration, endless possibilities."
+                    }
+                }
+            ]
+        },
+        {
+            "type": "PARAGRAPH",
+            "id": "3b77e19"
+        },
+        {
+            "type": "IMAGE",
+            "id": "gt72918",
+            "imageData": {
+                "containerData": {
+                    "width": {
+                        "size": "CONTENT"
+                    },
+                    "alignment": "CENTER",
+                    "textWrap": true
+                },
+                "image": {
+                    "src": {
+                        "id": "16f8d7_db4dc593627d4111aac23c9afc3eb19c~mv2.png"
+                    },
+                    "width": 704,
+                    "height": 433
+                }
+            }
+        },
+        {
+            "type": "PARAGRAPH",
+            "id": "gy42331"
+        }
+    ]
+}

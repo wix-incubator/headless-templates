@@ -8,7 +8,7 @@ import {
 import { media } from "@wix/sdk";
 
 const wrapWithTag = (content: string, tag: string, attributes = "") =>
-  `<${tag}${attributes ? ` ${attributes}` : ""}>${content}</${tag}>`;
+  `<${tag}${attributes ? ` ${attributes}` : ""}>${content ?? ""}</${tag}>`;
 
 const applyLinkDecoration = (text: string, linkData: any) => {
   const { url, target, rel } = linkData.link;
@@ -81,7 +81,7 @@ const renderListItemNode = (node: RicosNode) =>
 const renderImageNode = (node: RicosNode, helpers: any) => {
   const { src, width, height } = node.imageData!.image;
   const imageUrl = helpers.media.getImageUrl(
-    `https://static.wixstatic.com/media/${src._id}`
+    `https://static.wixstatic.com/media/${src.id}`
   ).url;
   const alignment = node.imageData!.containerData.alignment.toLowerCase();
   const caption = renderRicosNode(node.nodes!, helpers);
@@ -121,7 +121,7 @@ const renderCaptionNode = (node: RicosNode) =>
 
 const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
   nodes
-    .map((node) => {
+    ?.map((node) => {
       switch (node.type) {
         case RicosNodeType.TEXT:
           return renderTextNode(node);
