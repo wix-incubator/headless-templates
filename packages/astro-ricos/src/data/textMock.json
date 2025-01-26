@@ -11,7 +11,8 @@
                         "text": "Bold ",
                         "decorations": [
                             {
-                                "type": "BOLD"
+                                "type": "BOLD",
+                                "fontWeightValue": 700
                             }
                         ]
                     }
@@ -29,7 +30,8 @@
                         "text": "Italic ",
                         "decorations": [
                             {
-                                "type": "ITALIC"
+                                "type": "ITALIC",
+                                "italicData": true
                             }
                         ]
                     }
@@ -47,7 +49,8 @@
                         "text": "Underlined ",
                         "decorations": [
                             {
-                                "type": "UNDERLINE"
+                                "type": "UNDERLINE",
+                                "underlineData": true
                             }
                         ]
                     }

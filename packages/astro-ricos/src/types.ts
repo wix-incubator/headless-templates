@@ -2,8 +2,12 @@ export enum DecorationType {
   BOLD = "BOLD",
   ITALIC = "ITALIC",
   UNDERLINE = "UNDERLINE",
+  SPOILER = "SPOILER",
+  ANCHOR = "ANCHOR",
+  MENTION = "MENTION",
   LINK = "LINK",
   COLOR = "COLOR",
+  FONT_SIZE = "FONT_SIZE",
 }
 
 export enum RicosAlignment {

@@ -42,13 +42,27 @@ const applyDecorations = (
         return wrapWithTag(result, "em");
       case DecorationType.UNDERLINE:
         return wrapWithTag(result, "u");
+      case DecorationType.SPOILER:
+        return wrapWithTag(result, "span", 'class="spoiler"');
+      case DecorationType.ANCHOR:
+        return wrapWithTag(result, "a", `name="${decoration.anchorData.name}"`);
+      case DecorationType.MENTION:
+        return wrapWithTag(
+          result,
+          "span",
+          `class="mention" data-mention-id="${decoration.mentionData.id}"`
+        );
       case DecorationType.LINK:
         return applyLinkDecoration(result, decoration.linkData);
       case DecorationType.COLOR:
         return applyColorDecoration(result, decoration.colorData);
+      case DecorationType.FONT_SIZE:
+        return wrapWithTag(
+          result,
+          "span",
+          `style="font-size: ${decoration.fontSizeData.size}px"`
+        );
       default:
-        if (decoration.fontWeightValue) result = wrapWithTag(result, "strong");
-        if (decoration.italicData) result = wrapWithTag(result, "em");
         return result;
     }
   }, text);
