@@ -186,6 +186,38 @@
                     }
                 }
             ]
+        },
+        {
+            "type": "PARAGRAPH",
+            "id": "y549n1",
+            "nodes": [
+                {
+                    "type": "TEXT",
+                    "textData": {
+                        "text": "Text with multiple decorations",
+                        "decorations": [
+                            {
+                                "type": "BOLD",
+                                "fontWeightValue": 700
+                            },
+                            {
+                                "type": "COLOR",
+                                "colorData": {
+                                    "background": "#BFAD80",
+                                    "foreground": "#0141AA"
+                                }
+                            },
+                            {
+                                "type": "ITALIC",
+                                "italicData": true
+                            },
+                            {
+                                "type": "UNDERLINE"
+                            }
+                        ]
+                    }
+                }
+            ]
         }
     ]
 }
