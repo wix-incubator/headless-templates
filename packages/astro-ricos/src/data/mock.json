@@ -38,26 +38,179 @@
         },
         {
             "type": "PARAGRAPH",
-            "id": "3b77e19"
+            "id": "lxr936"
         },
         {
-            "type": "IMAGE",
-            "id": "gt72918",
-            "imageData": {
-                "containerData": {
-                    "width": {
-                        "size": "CONTENT"
-                    },
-                    "alignment": "CENTER",
-                    "textWrap": true
+            "type": "ORDERED_LIST",
+            "id": "9ep0u176",
+            "nodes": [
+                {
+                    "type": "LIST_ITEM",
+                    "id": "jjfyx177",
+                    "nodes": [
+                        {
+                            "type": "PARAGRAPH",
+                            "id": "jnstn178",
+                            "nodes": [
+                                {
+                                    "type": "TEXT",
+                                    "id": "",
+                                    "textData": {
+                                        "text": "Register for an Account"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 },
-                "image": {
-                    "src": {
-                        "id": "16f8d7_db4dc593627d4111aac23c9afc3eb19c~mv2.png"
-                    },
-                    "width": 704,
-                    "height": 433
+                {
+                    "type": "LIST_ITEM",
+                    "id": "c5n41185",
+                    "nodes": [
+                        {
+                            "type": "PARAGRAPH",
+                            "id": "99sc6186",
+                            "nodes": [
+                                {
+                                    "type": "TEXT",
+                                    "id": "",
+                                    "textData": {
+                                        "text": "Complete Your Profile"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "LIST_ITEM",
+                    "id": "ztavj195",
+                    "nodes": [
+                        {
+                            "type": "PARAGRAPH",
+                            "id": "t5003196",
+                            "nodes": [
+                                {
+                                    "type": "TEXT",
+                                    "id": "",
+                                    "textData": {
+                                        "text": "Set Up Two-Factor Authentication (2FA)"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "LIST_ITEM",
+                    "id": "aqi3s205",
+                    "nodes": [
+                        {
+                            "type": "PARAGRAPH",
+                            "id": "rlnv2206",
+                            "nodes": [
+                                {
+                                    "type": "TEXT",
+                                    "id": "",
+                                    "textData": {
+                                        "text": "Explore Features"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
+            ],
+            "orderedListData": {
+                "indentation": 0
+            }
+        },
+        {
+            "type": "BULLETED_LIST",
+            "id": "7g1n840",
+            "nodes": [
+                {
+                    "type": "LIST_ITEM",
+                    "id": "ofe6r36",
+                    "nodes": [
+                        {
+                            "type": "PARAGRAPH",
+                            "id": "p7gnk37",
+                            "nodes": [
+                                {
+                                    "type": "TEXT",
+                                    "id": "",
+                                    "textData": {
+                                        "text": "Modern design"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "LIST_ITEM",
+                    "id": "8cskz43",
+                    "nodes": [
+                        {
+                            "type": "PARAGRAPH",
+                            "id": "v9apv44",
+                            "nodes": [
+                                {
+                                    "type": "TEXT",
+                                    "id": "",
+                                    "textData": {
+                                        "text": "Customizable themes"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "LIST_ITEM",
+                    "id": "qaueg51",
+                    "nodes": [
+                        {
+                            "type": "PARAGRAPH",
+                            "id": "qz0os52",
+                            "nodes": [
+                                {
+                                    "type": "TEXT",
+                                    "id": "",
+                                    "textData": {
+                                        "text": "Responsive layout"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "bulletedListData": {
+                "indentation": 0
+            }
+        },
+        {
+            "type": "BLOCKQUOTE",
+            "id": "fs1z6340",
+            "nodes": [
+                {
+                    "type": "PARAGRAPH",
+                    "id": "7cjij362",
+                    "nodes": [
+                        {
+                            "type": "TEXT",
+                            "id": "",
+                            "textData": {
+                                "text": "The only way to do great work is to love what you do."
+                            }
+                        }
+                    ]
+                }
+            ],
+            "blockquoteData": {
+                "indentation": 0
             }
         },
         {
@@ -150,6 +303,44 @@
                     }
                 }
             ]
+        },
+        {
+            "type": "IMAGE",
+            "id": "dfkcg1",
+            "nodes": [
+                {
+                    "type": "CAPTION",
+                    "id": "8otnq8",
+                    "nodes": [
+                        {
+                            "type": "TEXT",
+                            "id": "",
+                            "textData": {
+                                "text": "Our wedding."
+                            }
+                        }
+                    ],
+                    "captionData": {}
+                }
+            ],
+            "imageData": {
+                "containerData": {
+                    "width": {
+                        "size": "CONTENT"
+                    },
+                    "alignment": "CENTER",
+                    "textWrap": true
+                },
+                "image": {
+                    "src": {
+                        "id": "8bb438_b2847057eba64e22b9d75c777a3c5145.jpg"
+                    },
+                    "width": 200,
+                    "height": 200
+                },
+                "altText": "A couple kissing during their marriage ceremony",
+                "caption": "Our wedding."
+            }
         }
     ]
 }
