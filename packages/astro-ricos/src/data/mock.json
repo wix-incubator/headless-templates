@@ -63,6 +63,93 @@
         {
             "type": "PARAGRAPH",
             "id": "gy42331"
+        },
+        {
+            "type": "PARAGRAPH",
+            "id": "y549n1",
+            "nodes": [
+                {
+                    "type": "TEXT",
+                    "id": "",
+                    "textData": {
+                        "text": "Fun",
+                        "decorations": [
+                            {
+                                "type": "BOLD",
+                                "fontWeightValue": 700
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "id": "",
+                    "textData": {
+                        "text": " "
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "id": "",
+                    "textData": {
+                        "text": "text",
+                        "decorations": [
+                            {
+                                "type": "ITALIC",
+                                "italicData": true
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "id": "",
+                    "textData": {
+                        "text": " "
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "id": "",
+                    "textData": {
+                        "text": "with",
+                        "decorations": [
+                            {
+                                "type": "UNDERLINE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "id": "",
+                    "textData": {
+                        "text": " "
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "id": "",
+                    "textData": {
+                        "text": "decorations",
+                        "decorations": [
+                            {
+                                "type": "COLOR",
+                                "colorData": {
+                                    "foreground": "#bf695c"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "id": "",
+                    "textData": {
+                        "text": "!"
+                    }
+                }
+            ]
         }
     ]
 }
