@@ -175,6 +175,19 @@ const renderHeadingNode = (node: RicosNode) =>
     children: renderRicosNode(node.nodes!),
   });
 
+const renderOrderedListNode = (node: RicosNode) =>
+  renderTag({
+    tag: "ol",
+    attributes: {
+      ...(node.orderedListData?.start && {
+        start: node.orderedListData?.start,
+      }),
+      "arial-level": node.orderedListData?.start || "1",
+    },
+    style: { marginLeft: `${node.bulletedListData?.indentation || 0}em` },
+    children: renderRicosNode(node.nodes!),
+  });
+
 const renderBulletedListNode = (node: RicosNode) =>
   renderTag({
     tag: "ul",
@@ -259,6 +272,8 @@ const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
           return renderImageNode(node, helpers!);
         case RicosNodeType.CAPTION:
           return renderCaptionNode(node);
+        case RicosNodeType.ORDERED_LIST:
+          return renderOrderedListNode(node);
         case RicosNodeType.BULLETED_LIST:
           return renderBulletedListNode(node);
         case RicosNodeType.LIST_ITEM:

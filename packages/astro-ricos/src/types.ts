@@ -20,6 +20,7 @@ export enum RicosNodeType {
   TEXT = "TEXT",
   HEADING = "HEADING",
   PARAGRAPH = "PARAGRAPH",
+  ORDERED_LIST = "ORDERED_LIST",
   BULLETED_LIST = "BULLETED_LIST",
   LIST_ITEM = "LIST_ITEM",
   IMAGE = "IMAGE",
@@ -74,6 +75,7 @@ export type RicosNode = {
       textWrap: boolean;
     };
   };
+  orderedListData?: { start?: string; offset?: string };
   bulletedListData?: { indentation: number };
   tableData?: {
     dimensions: {
