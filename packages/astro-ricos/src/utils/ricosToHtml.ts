@@ -16,6 +16,20 @@ const objectToStyle = (style: Record<string, string>): string =>
     .map(([key, value]) => `${key}: ${value}`)
     .join("; ");
 
+const renderTextStyle = (data: Record<string, any>): Record<string, string> => {
+  return {
+    ...(data?.textStyle?.textAlignment && {
+      "text-align": data?.textStyle?.textAlignment.toLowerCase(),
+    }),
+    ...(data?.textStyle?.lineHeight && {
+      "line-height": data?.textStyle?.lineHeight,
+    }),
+    ...(data?.indentation && {
+      "margin-inline-start": `${data?.indentation * 40}px`,
+    }),
+  };
+};
+
 const renderTag = ({
   tag,
   attributes = {},
@@ -145,12 +159,7 @@ const renderParagraphNode = (node: RicosNode) =>
       ...(node.style?.paddingBottom && {
         "padding-bottom": node.style?.paddingBottom,
       }),
-      ...(node.paragraphData?.textStyle?.lineHeight && {
-        "line-height": node.paragraphData?.textStyle?.lineHeight,
-      }),
-      ...(node.paragraphData?.indentation && {
-        "margin-inline-start": `${node.paragraphData?.indentation * 40}px`,
-      }),
+      ...renderTextStyle(node.paragraphData),
     },
   });
 
@@ -158,8 +167,7 @@ const renderHeadingNode = (node: RicosNode) =>
   renderTag({
     tag: `h${node.headingData.level || 1}`,
     style: {
-      textAlign:
-        node.headingData?.textStyle?.textAlignment || RicosAlignment.LEFT,
+      ...renderTextStyle(node.headingData),
     },
     children: renderRicosNode(node.nodes!),
   });
