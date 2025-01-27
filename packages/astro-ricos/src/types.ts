@@ -76,7 +76,7 @@ export type RicosNode = {
     };
   };
   orderedListData?: { start?: string; offset?: string };
-  bulletedListData?: { indentation: number };
+  bulletedListData?: { offset?: string };
   tableData?: {
     dimensions: {
       colsWidthRatio: number[];

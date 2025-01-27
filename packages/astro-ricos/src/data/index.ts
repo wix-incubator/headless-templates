@@ -4,6 +4,7 @@ import headingMock from "./headingMock.json";
 // import imageMock from "./imageMock.json";
 import captionMock from "./captionMock.json";
 import orderedListMock from "./orderedListMock.json";
+import bulletedListMock from "./bulletedListMock.json";
 
 const ricosNodesMock = {
   nodes: [
@@ -13,6 +14,7 @@ const ricosNodesMock = {
     // ...imageMock.nodes,
     ...captionMock.nodes,
     ...orderedListMock.nodes,
+    ...bulletedListMock.nodes,
   ],
 };
 

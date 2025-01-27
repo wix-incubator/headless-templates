@@ -1,41 +1,61 @@
 {
     "nodes": [
         {
-            "type": "HEADING",
-            "id": "6crhm174",
+            "type": "PARAGRAPH",
+            "id": "i044f151",
             "nodes": [
                 {
                     "type": "TEXT",
                     "id": "",
                     "textData": {
-                        "text": "Steps to Set Up Your Account"
+                        "text": "User-Friendly Interface",
+                        "decorations": [
+                            {
+                                "type": "BOLD",
+                                "fontWeightValue": 700
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "TEXT",
+                    "id": "",
+                    "textData": {
+                        "text": ":"
                     }
                 }
-            ],
-            "headingData": {
-                "level": 3,
-                "textStyle": {
-                    "textAlignment": "AUTO"
-                }
-            }
+            ]
         },
         {
-            "type": "ORDERED_LIST",
-            "id": "9ep0u176",
+            "type": "PARAGRAPH",
+            "id": "2zp7u31",
+            "nodes": [
+                {
+                    "type": "TEXT",
+                    "id": "",
+                    "textData": {
+                        "text": "Our product offers an intuitive and easy-to-use interface that requires minimal training."
+                    }
+                }
+            ]
+        },
+        {
+            "type": "BULLETED_LIST",
+            "id": "7g1n840",
             "nodes": [
                 {
                     "type": "LIST_ITEM",
-                    "id": "jjfyx177",
+                    "id": "ofe6r36",
                     "nodes": [
                         {
                             "type": "PARAGRAPH",
-                            "id": "jnstn178",
+                            "id": "p7gnk37",
                             "nodes": [
                                 {
                                     "type": "TEXT",
                                     "id": "",
                                     "textData": {
-                                        "text": "Register for an Account"
+                                        "text": "Modern design"
                                     }
                                 }
                             ]
@@ -44,17 +64,17 @@
                 },
                 {
                     "type": "LIST_ITEM",
-                    "id": "c5n41185",
+                    "id": "8cskz43",
                     "nodes": [
                         {
                             "type": "PARAGRAPH",
-                            "id": "99sc6186",
+                            "id": "v9apv44",
                             "nodes": [
                                 {
                                     "type": "TEXT",
                                     "id": "",
                                     "textData": {
-                                        "text": "Complete Your Profile"
+                                        "text": "Customizable themes"
                                     }
                                 }
                             ]
@@ -63,36 +83,17 @@
                 },
                 {
                     "type": "LIST_ITEM",
-                    "id": "ztavj195",
+                    "id": "qaueg51",
                     "nodes": [
                         {
                             "type": "PARAGRAPH",
-                            "id": "t5003196",
+                            "id": "qz0os52",
                             "nodes": [
                                 {
                                     "type": "TEXT",
                                     "id": "",
                                     "textData": {
-                                        "text": "Set Up Two-Factor Authentication (2FA)"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "type": "LIST_ITEM",
-                    "id": "aqi3s205",
-                    "nodes": [
-                        {
-                            "type": "PARAGRAPH",
-                            "id": "rlnv2206",
-                            "nodes": [
-                                {
-                                    "type": "TEXT",
-                                    "id": "",
-                                    "textData": {
-                                        "text": "Explore Features"
+                                        "text": "Responsive layout"
                                     }
                                 }
                             ]
@@ -100,9 +101,8 @@
                     ]
                 }
             ],
-            "orderedListData": {
-                "start": 1,
-                "offset": 2
+            "bulletedListData": {
+                "indentation": 0
             }
         }
     ]

@@ -182,16 +182,17 @@ const renderOrderedListNode = (node: RicosNode) =>
       ...(node.orderedListData?.start && {
         start: node.orderedListData?.start,
       }),
-      "arial-level": node.orderedListData?.start || "1",
+      "arial-level": node.orderedListData?.offset + 1 || "1",
     },
-    style: { marginLeft: `${node.bulletedListData?.indentation || 0}em` },
     children: renderRicosNode(node.nodes!),
   });
 
 const renderBulletedListNode = (node: RicosNode) =>
   renderTag({
     tag: "ul",
-    style: { marginLeft: `${node.bulletedListData?.indentation || 0}em` },
+    attributes: {
+      "arial-level": node.orderedListData?.offset + 1 || "1",
+    },
     children: renderRicosNode(node.nodes!),
   });
 
