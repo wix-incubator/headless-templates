@@ -1,9 +1,15 @@
 import textMock from "./textMock.json";
 import paragraphMock from "./paragraphMock.json";
 import headingMock from "./headingMock.json";
+import imageMock from "./imageMock.json";
 
-const nodesMock = {
-  nodes: [...textMock.nodes, ...paragraphMock.nodes, ...headingMock.nodes],
+const ricosNodesMock = {
+  nodes: [
+    ...textMock.nodes,
+    ...paragraphMock.nodes,
+    ...headingMock.nodes,
+    ...imageMock.nodes,
+  ],
 };
 
-export default nodesMock;
+export default ricosNodesMock;

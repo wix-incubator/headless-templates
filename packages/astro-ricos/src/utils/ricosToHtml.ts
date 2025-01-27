@@ -1,10 +1,5 @@
 import { media } from "@wix/sdk";
-import {
-  DecorationType,
-  RicosAlignment,
-  type RicosNode,
-  RicosNodeType,
-} from "../types";
+import { DecorationType, type RicosNode, RicosNodeType } from "../types";
 
 const objectToAttributes = (attributes: Record<string, string>): string =>
   Object.entries(attributes)
