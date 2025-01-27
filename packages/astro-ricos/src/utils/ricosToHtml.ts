@@ -184,15 +184,21 @@ const renderImageNode = (node: RicosNode, helpers: any) => {
   ).url;
   const alignment = node.imageData.containerData.alignment.toLowerCase();
   const caption = renderRicosNode(node.nodes!, helpers);
+
   return renderTag({
-    tag: "div",
-    style: { textAlign: alignment },
+    tag: "figure",
+    style: {
+      "text-align": alignment,
+      ...(node.imageData.containerData.width.size === "ORIGINAL" && {
+        width: `${width}px`,
+        height: `${height}px`,
+      }),
+    },
     children:
       `<img src="${imageUrl}" width="${width}" height="${height}" alt="${node.imageData.altText}" />` +
       (caption
         ? renderTag({
-            tag: "div",
-            attributes: { class: "caption" },
+            tag: "figcaption",
             children: caption,
           })
         : ""),
@@ -223,8 +229,7 @@ const renderTableCellNode = (node: RicosNode) =>
 
 const renderCaptionNode = (node: RicosNode) =>
   renderTag({
-    tag: "div",
-    attributes: { class: "caption" },
+    tag: "span",
     children: renderRicosNode(node.nodes!),
   });
 
