@@ -11,6 +11,17 @@ const objectToStyle = (style: Record<string, string>): string =>
     .map(([key, value]) => `${key}: ${value}`)
     .join("; ");
 
+const renderNodeStyle = (
+  style: Record<string, any>
+): Record<string, string> => {
+  return {
+    ...(style?.paddingTop && { "padding-top": style?.paddingTop }),
+    ...(style?.paddingBottom && {
+      "padding-bottom": style?.paddingBottom,
+    }),
+  };
+};
+
 const renderTextStyle = (data: Record<string, any>): Record<string, string> => {
   return {
     ...(data?.textStyle?.textAlignment && {
@@ -150,10 +161,7 @@ const renderParagraphNode = (node: RicosNode) =>
       id: node.id,
     },
     style: {
-      ...(node.style?.paddingTop && { "padding-top": node.style?.paddingTop }),
-      ...(node.style?.paddingBottom && {
-        "padding-bottom": node.style?.paddingBottom,
-      }),
+      ...renderNodeStyle(node.style),
       ...renderTextStyle(node.paragraphData),
     },
   });
@@ -176,6 +184,16 @@ const renderBulletedListNode = (node: RicosNode) =>
 
 const renderListItemNode = (node: RicosNode) =>
   renderTag({ tag: "li", children: renderRicosNode(node.nodes!) });
+
+const renderCaptionNode = (node: RicosNode) =>
+  renderTag({
+    tag: "figcaption",
+    children: renderRicosNode(node.nodes!),
+    style: {
+      ...renderNodeStyle(node.style),
+      ...renderTextStyle(node.captionData),
+    },
+  });
 
 const renderImageNode = (node: RicosNode, helpers: any) => {
   const { src, width, height } = node.imageData.image;
@@ -227,12 +245,6 @@ const renderTableRowNode = (node: RicosNode) =>
 const renderTableCellNode = (node: RicosNode) =>
   renderTag({ tag: "td", children: renderRicosNode(node.nodes!) });
 
-const renderCaptionNode = (node: RicosNode) =>
-  renderTag({
-    tag: "span",
-    children: renderRicosNode(node.nodes!),
-  });
-
 const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
   nodes
     ?.map((node) => {
@@ -243,20 +255,20 @@ const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
           return renderHeadingNode(node);
         case RicosNodeType.PARAGRAPH:
           return renderParagraphNode(node);
+        case RicosNodeType.IMAGE:
+          return renderImageNode(node, helpers!);
+        case RicosNodeType.CAPTION:
+          return renderCaptionNode(node);
         case RicosNodeType.BULLETED_LIST:
           return renderBulletedListNode(node);
         case RicosNodeType.LIST_ITEM:
           return renderListItemNode(node);
-        case RicosNodeType.IMAGE:
-          return renderImageNode(node, helpers!);
         case RicosNodeType.TABLE:
           return renderTableNode(node);
         case RicosNodeType.TABLE_ROW:
           return renderTableRowNode(node);
         case RicosNodeType.TABLE_CELL:
           return renderTableCellNode(node);
-        case RicosNodeType.CAPTION:
-          return renderCaptionNode(node);
         default:
           return "";
       }
