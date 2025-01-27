@@ -237,6 +237,18 @@ const renderImageNode = (node: RicosNode, helpers: any) => {
   });
 };
 
+const renderBlockquoteNode = (node: RicosNode) =>
+  renderTag({
+    tag: "blockquote",
+    children: renderRicosNode(node.nodes!),
+    style: {
+      ...renderNodeStyle(node.style),
+      ...(node.blockquoteData?.indentation && {
+        "margin-inline-start": `${node.blockquoteData?.indentation * 1.5}em`,
+      }),
+    },
+  });
+
 const renderTableNode = (node: RicosNode) => {
   const { colsWidthRatio, colsMinWidth } = node.tableData.dimensions;
   const colGroup = colsWidthRatio
@@ -279,6 +291,8 @@ const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
           return renderBulletedListNode(node);
         case RicosNodeType.LIST_ITEM:
           return renderListItemNode(node);
+        case RicosNodeType.BLOCKQUOTE:
+          return renderBlockquoteNode(node);
         case RicosNodeType.TABLE:
           return renderTableNode(node);
         case RicosNodeType.TABLE_ROW:

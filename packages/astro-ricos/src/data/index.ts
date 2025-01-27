@@ -5,6 +5,7 @@ import headingMock from "./headingMock.json";
 import captionMock from "./captionMock.json";
 import orderedListMock from "./orderedListMock.json";
 import bulletedListMock from "./bulletedListMock.json";
+import blockquoteMock from "./blockquoteMock.json";
 
 const ricosNodesMock = {
   nodes: [
@@ -15,6 +16,7 @@ const ricosNodesMock = {
     ...captionMock.nodes,
     ...orderedListMock.nodes,
     ...bulletedListMock.nodes,
+    ...blockquoteMock.nodes,
   ],
 };
 

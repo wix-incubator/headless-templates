@@ -20,10 +20,11 @@ export enum RicosNodeType {
   TEXT = "TEXT",
   HEADING = "HEADING",
   PARAGRAPH = "PARAGRAPH",
+  IMAGE = "IMAGE",
   ORDERED_LIST = "ORDERED_LIST",
   BULLETED_LIST = "BULLETED_LIST",
   LIST_ITEM = "LIST_ITEM",
-  IMAGE = "IMAGE",
+  BLOCKQUOTE = "BLOCKQUOTE",
   TABLE = "TABLE",
   TABLE_ROW = "TABLE_ROW",
   TABLE_CELL = "TABLE_CELL",
@@ -64,6 +65,9 @@ export type RicosNode = {
     textStyle?: {
       lineHeight?: string;
     };
+    indentation?: number;
+  };
+  blockquoteData?: {
     indentation?: number;
   };
   nodes?: RicosNode[];
