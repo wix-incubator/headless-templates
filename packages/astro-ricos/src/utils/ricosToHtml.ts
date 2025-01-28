@@ -284,6 +284,19 @@ const renderCodeBlockNode = (node: RicosNode) =>
     },
   });
 
+const renderCollapsibleListNode = (node: RicosNode) =>
+  renderTag({
+    tag: "pre",
+    children: renderTag({
+      tag: "code",
+      children: renderRicosNode(node.nodes!),
+    }),
+    style: {
+      ...renderNodeStyle(node.style),
+      ...renderTextStyle(node.codeBlockData),
+    },
+  });
+
 const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
   nodes
     ?.map((node) => {
@@ -314,6 +327,8 @@ const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
           return renderTableCellNode(node);
         case RicosNodeType.CODE_BLOCK:
           return renderCodeBlockNode(node);
+        case RicosNodeType.COLLAPSIBLE_LIST:
+          return renderCollapsibleListNode(node);
         default:
           return "";
       }
