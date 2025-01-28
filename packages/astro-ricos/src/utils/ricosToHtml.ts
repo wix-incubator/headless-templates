@@ -311,7 +311,7 @@ const renderCollapsibleListNode = (node: RicosNode): string => {
 const renderCollapsibleItemNode = (
   node: RicosNode,
   isOpen: boolean,
-  collapsibleListData: any
+  collapsibleListData?: any
 ): string => {
   const titleNode = node.nodes.find(
     (child) => child.type === RicosNodeType.COLLAPSIBLE_ITEM_TITLE
