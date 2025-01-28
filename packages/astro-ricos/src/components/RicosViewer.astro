@@ -1,0 +1,7 @@
+---
+import { ricosToHtml } from "../utils/ricosToHtml";
+
+const { content } = Astro.props;
+---
+
+<div set:html={ricosToHtml(content)} />
