@@ -271,6 +271,19 @@ const renderTableRowNode = (node: RicosNode) =>
 const renderTableCellNode = (node: RicosNode) =>
   renderTag({ tag: "td", children: renderRicosNode(node.nodes!) });
 
+const renderCodeBlockNode = (node: RicosNode) =>
+  renderTag({
+    tag: "pre",
+    children: renderTag({
+      tag: "code",
+      children: renderRicosNode(node.nodes!),
+    }),
+    style: {
+      ...renderNodeStyle(node.style),
+      ...renderTextStyle(node.codeBlockData),
+    },
+  });
+
 const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
   nodes
     ?.map((node) => {
@@ -299,6 +312,8 @@ const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
           return renderTableRowNode(node);
         case RicosNodeType.TABLE_CELL:
           return renderTableCellNode(node);
+        case RicosNodeType.CODE_BLOCK:
+          return renderCodeBlockNode(node);
         default:
           return "";
       }

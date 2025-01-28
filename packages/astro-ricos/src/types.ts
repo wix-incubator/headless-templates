@@ -21,6 +21,7 @@ export enum RicosNodeType {
   HEADING = "HEADING",
   PARAGRAPH = "PARAGRAPH",
   IMAGE = "IMAGE",
+  CAPTION = "CAPTION",
   ORDERED_LIST = "ORDERED_LIST",
   BULLETED_LIST = "BULLETED_LIST",
   LIST_ITEM = "LIST_ITEM",
@@ -28,7 +29,9 @@ export enum RicosNodeType {
   TABLE = "TABLE",
   TABLE_ROW = "TABLE_ROW",
   TABLE_CELL = "TABLE_CELL",
-  CAPTION = "CAPTION",
+  DIVIDER = "DIVIDER",
+  CODE_BLOCK = "CODE_BLOCK",
+  COLLAPSIBLE_LIST = "COLLAPSIBLE_LIST",
 }
 
 export type RicosDecoration = {
@@ -87,6 +90,9 @@ export type RicosNode = {
       rowsHeight: number[];
       colsMinWidth: number[];
     };
+  };
+  codeBlockData?: {
+    textStyle?: { textAlignment: RicosAlignment };
   };
   captionData?: {};
 };

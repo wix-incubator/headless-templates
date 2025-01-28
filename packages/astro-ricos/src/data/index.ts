@@ -8,6 +8,7 @@ import bulletedListMock from "./bulletedListMock.json";
 import blockquoteMock from "./blockquoteMock.json";
 // import tableMock from "./tableMock.json";
 // import dividerMock from "./dividerMock.json";
+import codeBlockMock from "./codeBlockMock.json";
 
 const ricosNodesMock = {
   nodes: [
@@ -21,6 +22,7 @@ const ricosNodesMock = {
     ...blockquoteMock.nodes,
     // ...tableMock.nodes,
     // ...dividerMock.nodes,
+    ...codeBlockMock.nodes,
   ],
 };
 
