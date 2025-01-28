@@ -342,6 +342,64 @@ const renderCollapsibleItemNode = (
   });
 };
 
+const renderDividerNode = (node: RicosNode): string => {
+  const { dividerData } = node;
+  const { lineStyle, width, alignment } = dividerData;
+
+  const alignmentStyles = {
+    LEFT: {
+      "margin-left": "0",
+    },
+    RIGHT: {
+      "margin-left": "auto",
+    },
+    CENTER: {
+      margin: "0 auto",
+    },
+  };
+
+  const widthStyles = {
+    SMALL: {
+      width: "10%;",
+    },
+    MEDIUM: {
+      width: "40%;",
+    },
+    LARGE: {
+      width: "100%;",
+    },
+  };
+
+  const lineStyles = {
+    SINGLE: {
+      "border-top": "1px solid #000;",
+    },
+    DOUBLE: {
+      "border-top": "3px double #000;",
+    },
+    DASHED: {
+      "border-top": "1px dashed #000;",
+    },
+    DOTTED: {
+      "border-top": "1px dotted #000;",
+    },
+  };
+
+  return renderTag({
+    tag: "div",
+    style: {
+      ...alignmentStyles[alignment || "CENTER"],
+      ...lineStyles[lineStyle || "SINGLE"],
+      ...widthStyles[width || "LARGE"],
+      padding: "14px 0",
+    },
+    attributes: {
+      role: "separator",
+      "aria-label": "divider",
+    },
+  });
+};
+
 const renderSpanNode = (node: RicosNode): string =>
   renderTag({
     tag: "span",
@@ -370,6 +428,8 @@ const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
           return renderListItemNode(node);
         case RicosNodeType.BLOCKQUOTE:
           return renderBlockquoteNode(node);
+        case RicosNodeType.DIVIDER:
+          return renderDividerNode(node);
         case RicosNodeType.TABLE:
           return renderTableNode(node);
         case RicosNodeType.TABLE_ROW:

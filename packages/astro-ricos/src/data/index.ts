@@ -7,7 +7,7 @@ import orderedListMock from "./orderedListMock.json";
 import bulletedListMock from "./bulletedListMock.json";
 import blockquoteMock from "./blockquoteMock.json";
 // import tableMock from "./tableMock.json";
-// import dividerMock from "./dividerMock.json";
+import dividerMock from "./dividerMock.json";
 import codeBlockMock from "./codeBlockMock.json";
 import collapsibleListMock from "./collapsibleListMock.json";
 
@@ -22,7 +22,7 @@ const ricosNodesMock = {
     ...bulletedListMock.nodes,
     ...blockquoteMock.nodes,
     // ...tableMock.nodes,
-    // ...dividerMock.nodes,
+    ...dividerMock.nodes,
     ...codeBlockMock.nodes,
     ...collapsibleListMock.nodes,
   ],

@@ -102,4 +102,9 @@ export type RicosNode = {
     initialExpandedItems: "FIRST" | "ALL" | "NONE";
     direction: "LTR" | "RTL";
   };
+  dividerData?: {
+    lineStyle?: "SINGLE" | "DOUBLE" | "DASHED" | "DOTTED";
+    width?: "SMALL" | "MEDIUM" | "LARGE";
+    alignment?: "RIGHT" | "CENTER" | "LEFT";
+  };
 };

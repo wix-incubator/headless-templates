@@ -23,13 +23,45 @@
             "dividerData": {
                 "containerData": {
                     "width": {},
-                    "alignment": "CENTER",
+                    "alignment": "LEFT",
                     "spoiler": {},
                     "height": {},
                     "textWrap": false
                 },
                 "lineStyle": "SINGLE",
                 "width": "LARGE",
+                "alignment": "CENTER"
+            }
+        },
+        {
+            "type": "DIVIDER",
+            "id": "tbuch5",
+            "dividerData": {
+                "containerData": {
+                    "width": {},
+                    "alignment": "CENTER",
+                    "spoiler": {},
+                    "height": {},
+                    "textWrap": false
+                },
+                "lineStyle": "DOUBLE",
+                "width": "MEDIUM",
+                "alignment": "CENTER"
+            }
+        },
+        {
+            "type": "DIVIDER",
+            "id": "tbuch5",
+            "dividerData": {
+                "containerData": {
+                    "width": {},
+                    "alignment": "RIGHT",
+                    "spoiler": {},
+                    "height": {},
+                    "textWrap": false
+                },
+                "lineStyle": "DASHED",
+                "width": "SMALL",
                 "alignment": "CENTER"
             }
         },
