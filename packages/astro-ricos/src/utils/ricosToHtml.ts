@@ -284,17 +284,68 @@ const renderCodeBlockNode = (node: RicosNode) =>
     },
   });
 
-const renderCollapsibleListNode = (node: RicosNode) =>
-  renderTag({
-    tag: "pre",
-    children: renderTag({
-      tag: "code",
-      children: renderRicosNode(node.nodes!),
-    }),
-    style: {
-      ...renderNodeStyle(node.style),
-      ...renderTextStyle(node.codeBlockData),
+const renderCollapsibleListNode = (node: RicosNode): string => {
+  const { initialExpandedItems } = node.collapsibleListData;
+
+  const children = node.nodes
+    .map((childNode, index) => {
+      if (childNode.type === RicosNodeType.COLLAPSIBLE_ITEM) {
+        return renderCollapsibleItemNode(
+          childNode,
+          initialExpandedItems === "FIRST" && index === 0,
+          {
+            ...node.collapsibleListData,
+          }
+        );
+      }
+      return "";
+    })
+    .join("");
+
+  return renderTag({
+    tag: "div",
+    children,
+  });
+};
+
+const renderCollapsibleItemNode = (
+  node: RicosNode,
+  isOpen: boolean,
+  collapsibleListData: any
+): string => {
+  const titleNode = node.nodes.find(
+    (child) => child.type === RicosNodeType.COLLAPSIBLE_ITEM_TITLE
+  );
+  const bodyNode = node.nodes.find(
+    (child) => child.type === RicosNodeType.COLLAPSIBLE_ITEM_BODY
+  );
+  const title = titleNode ? renderRicosNode([titleNode]) : "";
+  const body = bodyNode ? renderRicosNode([bodyNode]) : "";
+
+  return renderTag({
+    tag: "details",
+    attributes: {
+      ...(isOpen && { open: "true" }),
+      ...(collapsibleListData.direction && {
+        dir: collapsibleListData.direction.toLowerCase(),
+      }),
     },
+    children:
+      renderTag({
+        tag: "summary",
+        children: title,
+
+        style: {
+          "list-style-position": "unset",
+        },
+      }) + body,
+  });
+};
+
+const renderSpanNode = (node: RicosNode): string =>
+  renderTag({
+    tag: "span",
+    children: renderRicosNode(node.nodes),
   });
 
 const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
@@ -329,8 +380,10 @@ const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
           return renderCodeBlockNode(node);
         case RicosNodeType.COLLAPSIBLE_LIST:
           return renderCollapsibleListNode(node);
+        case RicosNodeType.COLLAPSIBLE_ITEM:
+          return renderCollapsibleItemNode(node, false);
         default:
-          return "";
+          return renderSpanNode(node);
       }
     })
     .join("");

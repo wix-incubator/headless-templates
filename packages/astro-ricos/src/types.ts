@@ -32,6 +32,9 @@ export enum RicosNodeType {
   DIVIDER = "DIVIDER",
   CODE_BLOCK = "CODE_BLOCK",
   COLLAPSIBLE_LIST = "COLLAPSIBLE_LIST",
+  COLLAPSIBLE_ITEM = "COLLAPSIBLE_ITEM",
+  COLLAPSIBLE_ITEM_TITLE = "COLLAPSIBLE_ITEM_TITLE",
+  COLLAPSIBLE_ITEM_BODY = "COLLAPSIBLE_ITEM_BODY",
 }
 
 export type RicosDecoration = {
@@ -95,4 +98,8 @@ export type RicosNode = {
     textStyle?: { textAlignment: RicosAlignment };
   };
   captionData?: {};
+  collapsibleListData?: {
+    initialExpandedItems: "FIRST" | "ALL" | "NONE";
+    direction: "LTR" | "RTL";
+  };
 };
