@@ -1,156 +1,61 @@
-import { media } from "@wix/sdk";
-import { DecorationType, type RicosNode, RicosNodeType } from "../types";
+import { renderNodeStyle, renderTextStyle } from "./styles";
+import { DecorationType, type RicosNode, RicosNodeType } from "./types";
+import { renderTag } from "./utils";
 
-const objectToAttributes = (attributes: Record<string, string>): string =>
-  Object.entries(attributes)
-    .map(([key, value]) => `${key}="${value}"`)
-    .join(" ");
+export const renderTextNode = (node: RicosNode): string => {
+  const { text, decorations } = node.textData ?? {};
 
-const objectToStyle = (style: Record<string, string>): string =>
-  Object.entries(style)
-    .map(([key, value]) => `${key}: ${value}`)
-    .join("; ");
+  return (
+    decorations?.reduce((result, decoration) => {
+      const styles = {
+        [DecorationType.BOLD]: {
+          "font-weight": `${decoration.fontWeightValue}`,
+        },
+        [DecorationType.ITALIC]: {
+          "font-style": decoration.italicData ? "italic" : "normal",
+        },
+        [DecorationType.UNDERLINE]: {
+          "text-decoration": decoration.underlineData ? "underline" : "none",
+        },
+        [DecorationType.SPOILER]: { cursor: "pointer", filter: "blur(0.25em)" },
+        [DecorationType.COLOR]: {
+          ...(decoration.colorData?.background && {
+            "background-color": decoration.colorData.background,
+          }),
+          ...(decoration.colorData?.foreground && {
+            color: decoration.colorData.foreground,
+          }),
+        },
+        [DecorationType.FONT_SIZE]: {
+          "font-size": `${decoration.fontSizeData?.value}${decoration.fontSizeData?.unit}`,
+        },
+      }[decoration.type];
 
-const renderNodeStyle = (
-  style: Record<string, any>
-): Record<string, string> => {
-  return {
-    ...(style?.paddingTop && { "padding-top": style?.paddingTop }),
-    ...(style?.paddingBottom && {
-      "padding-bottom": style?.paddingBottom,
-    }),
-  };
-};
+      const tag = {
+        [DecorationType.BOLD]: "strong",
+        [DecorationType.ITALIC]: "em",
+        [DecorationType.UNDERLINE]: "u",
+        [DecorationType.SPOILER]: "span",
+        [DecorationType.LINK]: "a",
+        [DecorationType.COLOR]: "span",
+        [DecorationType.FONT_SIZE]: "span",
+      }[decoration.type];
 
-const renderTextStyle = (data: Record<string, any>): Record<string, string> => {
-  return {
-    ...(data?.textStyle?.textAlignment && {
-      "text-align": data?.textStyle?.textAlignment.toLowerCase(),
-    }),
-    ...(data?.textStyle?.lineHeight && {
-      "line-height": data?.textStyle?.lineHeight,
-    }),
-    ...(data?.indentation && {
-      "margin-inline-start": `${data?.indentation * 40}px`,
-    }),
-  };
-};
-
-const renderTag = ({
-  tag,
-  attributes = {},
-  children = "",
-  style = {},
-}: {
-  tag: string;
-  children?: string;
-  attributes?: Record<string, string>;
-  style?: Record<string, string>;
-}): string => {
-  const attributesString = Object.keys(attributes).length
-    ? ` ${objectToAttributes(attributes)}`
-    : "";
-  const styleString = Object.keys(style).length
-    ? ` style="${objectToStyle(style)}"`
-    : "";
-
-  return `<${tag}${attributesString}${styleString}>${children}</${tag}>`;
-};
-
-const renderTextNode = (node: RicosNode) => {
-  const { text, decorations } = node.textData;
-
-  return decorations
-    ? decorations.reduce((result, decoration) => {
-        switch (decoration.type) {
-          case DecorationType.BOLD:
-            return renderTag({
-              tag: "strong",
-              children: result,
-              style: {
-                "font-weight": `${decoration.fontWeightValue}`,
-              },
-            });
-          case DecorationType.ITALIC:
-            return renderTag({
-              tag: "em",
-              children: result,
-              style: {
-                "font-style": !decoration.italicData ? "normal" : "italic",
-              },
-            });
-          case DecorationType.UNDERLINE:
-            return renderTag({
-              tag: "u",
-              children: result,
-              style: {
-                "font-decoration": !decoration.underlineData
-                  ? "underline"
-                  : "none",
-              },
-            });
-          case DecorationType.SPOILER:
-            return renderTag({
-              tag: "span",
-              attributes: { role: "button" },
-              style: {
-                cursor: "pointer",
-                filter: "blur(0.25em)",
-              },
-              children: result,
-            });
-          case DecorationType.ANCHOR:
-            return renderTag({
-              tag: "a",
-              attributes: {
-                href: `#${decoration.anchorData.anchor}`,
-                target: "_self",
-              },
-              children: result,
-            });
-          case DecorationType.MENTION:
-            return renderTag({
-              tag: "span",
-              attributes: {
-                role: "link",
-                tabindex: "0",
-              },
-              children: result,
-            });
-          case DecorationType.LINK:
-            return renderTag({
-              tag: "a",
-              attributes: {
-                href: decoration.linkData.link.url,
+      return renderTag({
+        tag,
+        children: result,
+        style: styles ?? {},
+        attributes:
+          decoration.type === DecorationType.LINK
+            ? {
+                href: decoration.linkData?.link.url,
                 target: "_blank",
                 rel: "noopener noreferrer",
-              },
-              children: text,
-            });
-          case DecorationType.COLOR:
-            return renderTag({
-              tag: "span",
-              style: {
-                ...(decoration.colorData.background && {
-                  "background-color": decoration.colorData.background,
-                }),
-                ...(decoration.colorData.foreground && {
-                  color: decoration.colorData.foreground,
-                }),
-              },
-              children: text,
-            });
-          case DecorationType.FONT_SIZE:
-            return renderTag({
-              tag: "span",
-              style: {
-                "font-size": `${decoration.fontSizeData.value}${decoration.fontSizeData.unit}`,
-              },
-              children: result,
-            });
-        }
-      }, text)
-    : text;
+              }
+            : {},
+      });
+    }, text) ?? text
+  );
 };
 
 const renderParagraphNode = (node: RicosNode) =>
@@ -463,7 +368,7 @@ const renderSpanNode = (node: RicosNode): string =>
     children: renderRicosNode(node.nodes),
   });
 
-const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
+export const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
   nodes
     ?.map((node) => {
       switch (node.type) {
@@ -508,10 +413,3 @@ const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
       }
     })
     .join("");
-
-export const ricosToHtml = async (content: {
-  nodes: RicosNode[];
-}): Promise<string> => {
-  const helpers = { media };
-  return renderRicosNode(content.nodes, helpers);
-};
