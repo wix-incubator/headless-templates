@@ -27,6 +27,7 @@ const ricosNodesMock = {
     ...collapsibleListMock.nodes,
     ...tableMock.nodes,
     ...imageMock.nodes,
+    ...gifMock.nodes,
     ...videoMock.nodes,
   ],
 };

@@ -237,6 +237,22 @@ const renderImageNode = (node: RicosNode, helpers: any) => {
   });
 };
 
+const renderGifNode = (node: RicosNode) => {
+  const { width, height } = node.gifData;
+  const url = node.gifData.original.gif || node.gifData.original.mp4;
+  const alignment = node.gifData.containerData.alignment.toLowerCase();
+
+  return renderTag({
+    tag: "figure",
+    style: {
+      "text-align": alignment,
+      width: `${width}px`,
+      height: `${height}px`,
+    },
+    children: `<img src="${url}" width="${width}" height="${height}" />`,
+  });
+};
+
 const renderBlockquoteNode = (node: RicosNode) =>
   renderTag({
     tag: "blockquote",
@@ -420,6 +436,8 @@ const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
           return renderParagraphNode(node);
         case RicosNodeType.IMAGE:
           return renderImageNode(node, helpers!);
+        case RicosNodeType.GIF:
+          return renderGifNode(node);
         case RicosNodeType.CAPTION:
           return renderCaptionNode(node);
         case RicosNodeType.ORDERED_LIST:

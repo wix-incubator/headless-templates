@@ -21,6 +21,7 @@ export enum RicosNodeType {
   HEADING = "HEADING",
   PARAGRAPH = "PARAGRAPH",
   IMAGE = "IMAGE",
+  GIF = "GIF",
   CAPTION = "CAPTION",
   ORDERED_LIST = "ORDERED_LIST",
   BULLETED_LIST = "BULLETED_LIST",
@@ -84,6 +85,11 @@ export type RicosNode = {
       width: { size: string };
       textWrap: boolean;
     };
+  };
+  gifData?: {
+    original: { gif?: string; mp4?: string };
+    width?: number;
+    height?: number;
   };
   orderedListData?: { start?: string; offset?: string };
   bulletedListData?: { offset?: string };
