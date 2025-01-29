@@ -80,17 +80,27 @@ export type RicosNode = {
   };
   nodes?: RicosNode[];
   imageData?: {
-    image: { src: { url: string }; width: number; height: number };
+    image: {
+      src: { url?: string; id: string };
+      width: number;
+      height: number;
+    };
     containerData: {
       alignment: RicosAlignment;
       width: { size: string };
       textWrap: boolean;
     };
+    altText?: string;
   };
   gifData?: {
-    original: { gif?: string; mp4?: string };
-    width?: number;
-    height?: number;
+    width: number;
+    height: number;
+    containerData: { alignment: string };
+    original: { gif: string; mp4?: string };
+  };
+  videoData?: {
+    video: { src: { id: string; url?: string } };
+    containerData: { alignment: string };
   };
   orderedListData?: { start?: string; offset?: string };
   bulletedListData?: { offset?: string };
