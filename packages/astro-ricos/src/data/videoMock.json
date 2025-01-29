@@ -1,0 +1,22 @@
+{
+    "nodes": [
+        {
+            "type": "VIDEO",
+            "id": "yueap27",
+            "videoData": {
+                "containerData": {
+                    "width": {
+                        "size": "CONTENT"
+                    },
+                    "alignment": "CENTER"
+                },
+                "video": {
+                    "src": {
+                        "url": "https://www.youtube.com/watch?v=5XxIwPKMlek"
+                    },
+                    "duration": 103
+                }
+            }
+        }
+    ]
+}
