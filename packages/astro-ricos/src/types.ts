@@ -39,69 +39,85 @@ export enum RicosNodeType {
   COLLAPSIBLE_ITEM_BODY = "COLLAPSIBLE_ITEM_BODY",
 }
 
+export enum FontSizeUnit {
+  PX = "px",
+  EM = "em",
+  REM = "rem",
+  PERCENT = "%",
+}
+
+export enum InitialExpandedItems {
+  FIRST = "FIRST",
+  ALL = "ALL",
+  NONE = "NONE",
+}
+
+export enum Direction {
+  LTR = "LTR",
+  RTL = "RTL",
+}
+
+export enum DividerLineStyle {
+  SINGLE = "SINGLE",
+  DOUBLE = "DOUBLE",
+  DASHED = "DASHED",
+  DOTTED = "DOTTED",
+}
+
+export enum DividerWidth {
+  SMALL = "SMALL",
+  MEDIUM = "MEDIUM",
+  LARGE = "LARGE",
+}
+
+export type TextStyle = {
+  textAlignment?: RicosAlignment;
+  lineHeight?: string;
+};
+
+export type ContainerData = {
+  alignment: RicosAlignment;
+  width: { size: string };
+};
+
+export type MediaData = {
+  src: { id: string; url?: string };
+  width?: number;
+  height?: number;
+};
+
 export type RicosDecoration = {
   type: DecorationType;
-  linkData?: {
-    link?: {
-      url: string;
-    };
-  };
+  linkData?: { link?: { url: string } };
   colorData?: { background?: string; foreground?: string };
   fontWeightValue?: number;
   italicData?: boolean;
   underlineData?: boolean;
   anchorData?: { anchor?: string };
-  fontSizeData?: {
-    value: number;
-    unit: string;
-  };
+  fontSizeData?: { value: number; unit: FontSizeUnit };
 };
 
 export type RicosNode = {
   type: RicosNodeType;
   id: string;
   textData?: { text: string; decorations: RicosDecoration[] };
-  headingData?: {
-    level: number;
-    textStyle?: { textAlignment: RicosAlignment };
-  };
-  style?: {
-    paddingTop?: string;
-    paddingBottom?: string;
-  };
-  paragraphData?: {
-    textStyle?: {
-      lineHeight?: string;
-    };
-    indentation?: number;
-  };
-  blockquoteData?: {
-    indentation?: number;
-  };
+  headingData?: { level: number; textStyle?: TextStyle };
+  style?: { paddingTop?: string; paddingBottom?: string };
+  paragraphData?: { textStyle?: TextStyle; indentation?: number };
+  blockquoteData?: { indentation?: number };
   nodes?: RicosNode[];
   imageData?: {
-    image: {
-      src: { url?: string; id: string };
-      width: number;
-      height: number;
-    };
-    containerData: {
-      alignment: RicosAlignment;
-      width: { size: string };
-      textWrap: boolean;
-    };
+    image: MediaData;
+    containerData: ContainerData;
     altText?: string;
   };
   gifData?: {
-    width: number;
-    height: number;
-    containerData: { alignment: string };
-    original: { gif: string; mp4?: string };
+    width?: number;
+    height?: number;
+    original: { gif?: string; mp4?: string };
+    containerData: ContainerData;
   };
-  videoData?: {
-    video: { src: { id: string; url?: string } };
-    containerData: { alignment: string };
-  };
+  videoData?: { video: MediaData; containerData: ContainerData };
   orderedListData?: { start?: string; offset?: string };
   bulletedListData?: { offset?: string };
   tableData?: {
@@ -111,17 +127,14 @@ export type RicosNode = {
       colsMinWidth: number[];
     };
   };
-  codeBlockData?: {
-    textStyle?: { textAlignment: RicosAlignment };
-  };
-  captionData?: {};
+  codeBlockData?: { textStyle?: TextStyle };
   collapsibleListData?: {
-    initialExpandedItems: "FIRST" | "ALL" | "NONE";
-    direction: "LTR" | "RTL";
+    initialExpandedItems: InitialExpandedItems;
+    direction: Direction;
   };
   dividerData?: {
-    lineStyle?: "SINGLE" | "DOUBLE" | "DASHED" | "DOTTED";
-    width?: "SMALL" | "MEDIUM" | "LARGE";
-    alignment?: "RIGHT" | "CENTER" | "LEFT";
+    lineStyle?: DividerLineStyle;
+    width?: DividerWidth;
+    alignment?: RicosAlignment;
   };
 };

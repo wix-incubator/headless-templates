@@ -148,7 +148,6 @@ const renderNode = {
       children: renderRicosNode(node.nodes!),
       style: {
         ...renderNodeStyle(node.style),
-        ...renderTextStyle(node.captionData),
       },
     }),
 
