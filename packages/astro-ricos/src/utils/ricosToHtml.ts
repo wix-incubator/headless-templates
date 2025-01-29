@@ -254,13 +254,15 @@ const renderTableNode = (node: RicosNode) => {
   const colGroup = colsWidthRatio
     .map(
       (width, index) =>
-        `<col style="width: ${width}%; min-width: ${colsMinWidth[index]}px;">`
+        `<col style="${width ? "width: " + width + "px;" : ""} ${
+          colsMinWidth[index] ? "min-width: " + colsMinWidth[index] + "px;" : ""
+        }">`
     )
     .join("");
   const tableRows = renderRicosNode(node.nodes!);
   return renderTag({
     tag: "table",
-    style: { width: "100%", borderCollapse: "collapse" },
+    style: { width: "100%" },
     children: `<colgroup>${colGroup}</colgroup><tbody>${tableRows}</tbody>`,
   });
 };
