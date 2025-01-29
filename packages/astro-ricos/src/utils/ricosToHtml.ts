@@ -253,6 +253,45 @@ const renderGifNode = (node: RicosNode) => {
   });
 };
 
+const renderVideoNode = (node: RicosNode, helpers: any): string => {
+  const { videoData } = node;
+  const { src } = videoData.video;
+  const alignment = videoData.containerData.alignment.toLowerCase();
+  const isYouTube =
+    src.url?.includes("youtube.com") || src.url?.includes("youtu.be");
+
+  if (isYouTube) {
+    const youtubeId =
+      src.url.match(/[?&]v=([^&#]+)/)?.[1] || src.url.split("/").pop();
+    return renderTag({
+      tag: "figure",
+      style: { "text-align": alignment },
+      children: `
+        <iframe
+         loading="lazy"
+          src="https://www.youtube.com/embed/${youtubeId}?autoplay=0" 
+          frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen aria-label="Embedded YouTube video">
+        </iframe>
+      `,
+    });
+  } else {
+    const videoUrl = helpers.media.getVideoUrl(
+      `https://video.wixstatic.com/${src.id}`
+    ).url;
+    return renderTag({
+      tag: "figure",
+      style: { "text-align": alignment },
+      children: `
+        <video preload="none" controls>
+          <source src="${videoUrl}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      `,
+    });
+  }
+};
+
 const renderBlockquoteNode = (node: RicosNode) =>
   renderTag({
     tag: "blockquote",
@@ -438,6 +477,8 @@ const renderRicosNode = (nodes: RicosNode[], helpers?: any): string =>
           return renderImageNode(node, helpers!);
         case RicosNodeType.GIF:
           return renderGifNode(node);
+        case RicosNodeType.VIDEO:
+          return renderVideoNode(node, helpers!);
         case RicosNodeType.CAPTION:
           return renderCaptionNode(node);
         case RicosNodeType.ORDERED_LIST:
