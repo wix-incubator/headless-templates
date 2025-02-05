@@ -1,4 +1,4 @@
-import { wixBlogLoader } from "@wix/astro-blog-loader";
+import { wixBlogLoader } from "@wix/astro/loaders";
 import { z } from "astro/zod";
 import { defineCollection } from "astro:content";
 
