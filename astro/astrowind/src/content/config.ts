@@ -47,15 +47,19 @@ const metadataDefinition = () =>
     .optional();
 
 const postCollection = defineCollection({
-  loader: wixBlogLoader((item) => ({
-    id: item.slug,
-    title: item.title,
-    excerpt: item.excerpt,
-    publishDate: new Date(item.firstPublishedDate),
-    updateDate: new Date(item.lastPublishedDate),
-    image: item.mediaUrl,
-    content: item.richContent,
-  })),
+  loader: wixBlogLoader((item) => {
+    return {
+      id: item.slug,
+      title: item.title,
+      excerpt: item.excerpt,
+      publishDate: new Date(item.firstPublishedDate),
+      updateDate: new Date(item.lastPublishedDate),
+      image: item.mediaUrl,
+      content: item.richContent,
+      category: item.categories[0].label,
+      tags: item.tags.map((tag) => tag.label),
+    };
+  }),
   schema: z.object({
     publishDate: z.date().optional(),
     updateDate: z.date().optional(),
