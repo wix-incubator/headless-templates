@@ -1,5 +1,6 @@
 ---
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro';
+import RicosViewer from '@wix/astro-ricos';
 
 import merge from 'lodash.merge';
 import type { ImageMetadata } from 'astro';
@@ -47,7 +48,7 @@ const metadata = merge(
 
 <Layout metadata={metadata}>
   <SinglePost post={{ ...post, image: image }} url={url}>
-    {post.Content ? <post.Content /> : <Fragment set:html={post.content || ''} />}
+    <RicosViewer content={post.content} />
   </SinglePost>
   <ToBlogLink />
   <RelatedPosts post={post} />

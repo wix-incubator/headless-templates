@@ -1,5 +1,5 @@
 import { z, defineCollection } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { wixBlogLoader } from '@wix/astro/loaders';
 
 const metadataDefinition = () =>
   z
@@ -47,7 +47,15 @@ const metadataDefinition = () =>
     .optional();
 
 const postCollection = defineCollection({
-  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/post' }),
+  loader: wixBlogLoader((item) => ({
+    id: item.slug,
+    title: item.title,
+    excerpt: item.excerpt,
+    publishDate: new Date(item.firstPublishedDate),
+    updateDate: new Date(item.lastPublishedDate),
+    image: item.mediaUrl,
+    content: item.richContent,
+  })),
   schema: z.object({
     publishDate: z.date().optional(),
     updateDate: z.date().optional(),
@@ -62,6 +70,8 @@ const postCollection = defineCollection({
     author: z.string().optional(),
 
     metadata: metadataDefinition(),
+
+    content: z.any(),
   }),
 });
 
