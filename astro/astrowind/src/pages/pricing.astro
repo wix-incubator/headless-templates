@@ -1,4 +1,5 @@
 ---
+import { getWixClient } from '@wix/astro';
 import Layout from '~/layouts/PageLayout.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
 import Prices from '~/components/widgets/Pricing.astro';
@@ -7,9 +8,22 @@ import Steps from '~/components/widgets/Steps.astro';
 import Features3 from '~/components/widgets/Features3.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
+const { items: plansData } = await getWixClient()
+  .plans
+  .queryPublicPlans()
+  .find();
+
+
 const metadata = {
   title: 'Pricing',
 };
+
+enum Period {
+  DAY = 'Per Day',
+  MONTH = 'Per Month',
+  YEAR = 'Per Year',
+}
+
 ---
 
 <Layout metadata={metadata}>
@@ -26,88 +40,19 @@ const metadata = {
   <Prices
     title="Our prices"
     subtitle="Only pay for what you need"
-    prices={[
-      {
-        title: 'basic',
-        subtitle: 'Optimal choice for personal use',
-        price: 29,
-        period: 'per month',
-        items: [
-          {
-            description: 'Etiam in libero, et volutpat',
-          },
-          {
-            description: 'Aenean ac nunc dolor tristique',
-          },
-          {
-            description: 'Cras scelerisque accumsan lib',
-          },
-          {
-            description: 'In hac habitasse',
-          },
-        ],
-        callToAction: {
-          target: '_blank',
-          text: 'Get started',
-          href: '#',
-        },
+    prices={plansData.map((plan) => ({
+      title: plan.name || "", 
+      subtitle: plan.description || "",
+      price: plan.pricing?.price?.value || 0,
+      period: Period[plan.pricing?.subscription?.cycleDuration?.unit || "MONTH"],
+      items: plan.perks?.values?.map((perk) => ({ description: perk })) || [],
+      callToAction: {
+        target: "_blank",
+        text: "Get started",
+        href: "#",
       },
-      {
-        title: 'standard',
-        subtitle: 'Optimal choice for small teams',
-        price: 69,
-        period: 'Per Month',
-        items: [
-          {
-            description: 'Proin vel laoreet',
-          },
-          {
-            description: 'Ut efficitur habitasse egestas',
-          },
-          {
-            description: 'Volutpat hac curabitur',
-          },
-          {
-            description: 'Pellentesque blandit ut nibh',
-          },
-          {
-            description: 'Donec fringilla sem',
-          },
-        ],
-        callToAction: {
-          target: '_blank',
-          text: 'Get started',
-          href: '#',
-        },
-        hasRibbon: true,
-        ribbonTitle: 'popular',
-      },
-      {
-        title: 'premium',
-        subtitle: 'Optimal choice for companies',
-        price: 199,
-        period: 'Per Month',
-        items: [
-          {
-            description: 'Curabitur suscipit risus',
-          },
-          {
-            description: 'Aliquam habitasse malesuada',
-          },
-          {
-            description: 'Suspendisse sit amet blandit',
-          },
-          {
-            description: 'Suspendisse auctor blandit dui',
-          },
-        ],
-        callToAction: {
-          target: '_blank',
-          text: 'Get started',
-          href: '#',
-        },
-      },
-    ]}
+      ...(plan.slug === "standard" && { hasRibbon: true, ribbonTitle: "popular" }),
+    }))}
   />
 
   <!-- Features3 Widget ************** -->
