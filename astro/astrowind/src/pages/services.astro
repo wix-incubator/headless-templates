@@ -1,4 +1,5 @@
 ---
+import { getWixClient } from '@wix/astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import Content from '~/components/widgets/Content.astro';
 import Features2 from '~/components/widgets/Features2.astro';
@@ -6,22 +7,29 @@ import Hero from '~/components/widgets/Hero.astro';
 import Testimonials from '~/components/widgets/Testimonials.astro';
 import Layout from '~/layouts/PageLayout.astro';
 
+const { items: [servicesData] } = await getWixClient()
+  .items
+  .query('ServicesPage')
+  .find();
+
 const metadata = {
   title: 'Services',
 };
+
 ---
 
 <Layout metadata={metadata}>
   <!-- Hero Widget ******************* -->
 
   <Hero
-    tagline="Services"
-    title="Elevate your projects with our stunning templates"
-    subtitle="Explore our meticulously crafted templates tailored to various industries and purposes. From captivating presentations to functional website designs, we offer the tools you need to succeed."
-    actions={[{ variant: 'primary', target: '_blank', text: 'Start exploring', href: '/' }]}
+    tagline={servicesData.herotagline}
+    title={servicesData.herotitle}
+    subtitle={servicesData.herosubtitle}
+    actions={[{ variant: 'primary', target: '_blank', text: servicesData.heroactionbuttontext
+, href: '/' }]}
     image={{
-      src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
-      alt: 'AstroWind Hero Image',
+      src: servicesData.heroimage,
+      alt: servicesData.heroimagealt,
     }}
   />
 
