@@ -59,10 +59,10 @@ const metadata = {
         icon: servicesData.featuresThirdItemIcon,
       },
       {
-        title: servicesData.featuresFourthItemTitle,
+        title: 'E-commerce',
         description:
-          servicesData.featuresFourthItemDescription,
-        icon: servicesData.featuresFourthItemIcon,
+          'Developing engaging online stores, our E-commerce templates ensure a dynamic presence to effectively showcase products. Ideal for startups or revamps.',
+        icon: 'tabler:shopping-cart',
       },
       {
         title: 'Blog',
@@ -102,22 +102,22 @@ const metadata = {
     isReversed
     items={[
       {
-        title: 'High-Quality Designs',
+        title: servicesData.mainFeaturesFirstItemTitle,
         description:
-          'Our templates feature top-tier designs that ensure a professional and polished appearance for your projects.',
-        icon: 'tabler:wand',
+          servicesData.mainFeaturesFirstItemDescription,
+        icon: servicesData.mainFeaturesFirstItemIcon,
       },
       {
-        title: 'Customization Tools',
+        title: servicesData.mainFeaturesSecondItemTitle,
         description:
-          'Tailor each template to your unique needs with user-friendly customization tools that let you personalize colors, fonts, and content.',
-        icon: 'tabler:settings',
+          servicesData.mainFeaturesSecondItemDescription,
+        icon: servicesData.mainFeaturesSecondItemIcon,
       },
       {
-        title: 'Pre-Designed Elements',
+        title: servicesData.mainFeaturesThirdItemTitle,
         description:
-          'Save time and effort with our ready-to-use elements, including graphics, icons, and layouts that enhance the visual appeal of your creations.',
-        icon: 'tabler:presentation',
+          servicesData.mainFeaturesThirdItemDescription,
+        icon: servicesData.mainFeaturesThirdItemIcon,
       },
       {
         title: 'Preview and Mockup Views',
@@ -127,12 +127,12 @@ const metadata = {
       },
     ]}
     image={{
-      src: 'https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
-      alt: 'Features Image',
+      src: servicesData.mainFeaturesImage,
+      alt: servicesData.mainFeaturesImageAlt,
     }}
   >
     <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Main Features</h3>
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">{servicesData.mainFeaturesTitle}</h3>
     </Fragment>
   </Content>
 
@@ -142,22 +142,22 @@ const metadata = {
     isAfterContent
     items={[
       {
-        title: 'Time Savings',
+        title: servicesData.benefitsFirstItemTitle,
         description:
-          'Streamline your workflow, enabling you to create stunning materials efficiently and allocate more time to your core tasks.',
-        icon: 'tabler:clock',
+          servicesData.benefitsFirstItemDescription,
+        icon: servicesData.benefitsFirstItemIcon,
       },
       {
-        title: 'Professional Appearance',
+        title: servicesData.benefitsSecondItemTitle,
         description:
-          'Elevate your projects with the polished and sophisticated look that our templates provide, making a lasting impression on your audience.',
-        icon: 'tabler:school',
+          servicesData.benefitsSecondItemDescription,
+        icon: servicesData.benefitsSecondItemIcon,
       },
       {
-        title: 'Cost-Efficiency',
+        title: servicesData.benefitsThirdItemTitle,
         description:
-          'Benefit from cost savings by avoiding the need for custom design work, as our templates offer professional-grade designs at a fraction of the cost.',
-        icon: 'tabler:coin',
+          servicesData.benefitsThirdItemDescription,
+        icon: servicesData.benefitsThirdItemIcon,
       },
       {
         title: 'Instant Download',
@@ -167,12 +167,12 @@ const metadata = {
       },
     ]}
     image={{
-      src: 'https://images.unsplash.com/photo-1552664688-cf412ec27db2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
-      alt: 'Benefits Image',
+      src: servicesData.benefitsImage,
+      alt: servicesData.benefitsImageAlt,
     }}
   >
     <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Benefits</h3>
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">{servicesData.benefitsTitle}</h3>
     </Fragment>
   </Content>
 
