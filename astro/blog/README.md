@@ -39,3 +39,18 @@ npm run dev
 ```
 
 Your blog will be available at **[http://localhost:4321/](http://localhost:4321/)** 🎉.
+
+### 4️⃣ Manage content through Wix Blog
+
+Once the project is set up, you can create and manage blog posts, drafts, categories, and tags directly through the **Wix Blog** in the **Wix Dashboard**.
+
+#### Creating a Blog Post
+
+1. **Go to the Wix Dashboard** and navigate to **Blog**.
+2. Click **Create New Post**.
+3. Add a **title**, **content**, and any **images** or **videos** you want to include.
+4. Assign **categories** and **tags** to organize your post.
+5. Choose whether to **publish** immediately or **save as draft**.
+6. Click **Publish** to make the post live.
+
+For more details, visit the [Wix Blog documentation](https://support.wix.com/en/wix-blog-1401920).
